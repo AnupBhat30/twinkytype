@@ -1,0 +1,1212 @@
+[
+  {
+    "id": "reverse-string",
+    "slug": "reverse-string",
+    "title": "Reverse a String",
+    "category": "JavaScript Basics",
+    "difficulty": "easy",
+    "problem": "Write a function to reverse a string without using built-in reverse().",
+    "solution": "function reverseString(str) {\n  let reversed = '';\n  for (let i = str.length - 1; i >= 0; i--) {\n    reversed += str[i];\n  }\n  return reversed;\n}\n\n// Alternative:\nfunction reverseStringRecursive(str, index = str.length - 1) {\n  if (index < 0) return '';\n  return str[index] + reverseStringRecursive(str, index - 1);\n}",
+    "explanation": "Iterate from last character to first and build reversed string. Alternative recursive solution."
+  },
+  {
+    "id": "check-palindrome",
+    "slug": "check-palindrome",
+    "title": "Check if String is Palindrome",
+    "category": "JavaScript Basics",
+    "difficulty": "easy",
+    "problem": "Write a function to check if a string is a palindrome.",
+    "solution": "function isPalindrome(str) {\n  const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, '');\n  let left = 0, right = cleaned.length - 1;\n  while (left < right) {\n    if (cleaned[left] !== cleaned[right]) return false;\n    left++;\n    right--;\n  }\n  return true;\n}\n\n// Or simply:\nfunction isPalindromeSimple(str) {\n  const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, '');\n  return cleaned === cleaned.split('').reverse().join('');\n}",
+    "explanation": "Remove non-alphanumeric characters, compare from both ends. Or reverse and compare."
+  },
+  {
+    "id": "character-frequency",
+    "slug": "character-frequency",
+    "title": "Count Character Frequencies",
+    "category": "JavaScript Basics",
+    "difficulty": "easy",
+    "problem": "Write a function to count character frequencies in a string.",
+    "solution": "function countFrequencies(str) {\n  const freq = {};\n  for (const char of str) {\n    freq[char] = (freq[char] || 0) + 1;\n  }\n  return freq;\n}\n\n// Using Map:\nfunction countFrequenciesMap(str) {\n  const freq = new Map();\n  for (const char of str) {\n    freq.set(char, (freq.get(char) || 0) + 1);\n  }\n  return freq;\n}",
+    "explanation": "Iterate through string and count occurrences in object or Map."
+  },
+  {
+    "id": "first-non-repeating",
+    "slug": "first-non-repeating",
+    "title": "First Non-Repeating Character",
+    "category": "JavaScript Basics",
+    "difficulty": "easy",
+    "problem": "Write a function to find the first non-repeating character in a string.",
+    "solution": "function firstNonRepeating(str) {\n  const freq = {};\n  for (const char of str) {\n    freq[char] = (freq[char] || 0) + 1;\n  }\n  for (const char of str) {\n    if (freq[char] === 1) return char;\n  }\n  return null;\n}",
+    "explanation": "First pass counts all characters. Second pass finds first with count of 1."
+  },
+  {
+    "id": "check-anagrams",
+    "slug": "check-anagrams",
+    "title": "Check if Strings are Anagrams",
+    "category": "JavaScript Basics",
+    "difficulty": "easy",
+    "problem": "Write a function to check whether two strings are anagrams.",
+    "solution": "function areAnagrams(str1, str2) {\n  const clean1 = str1.toLowerCase().replace(/\\s/g, '').split('').sort().join('');\n  const clean2 = str2.toLowerCase().replace(/\\s/g, '').split('').sort().join('');\n  return clean1 === clean2;\n}\n\n// Efficient approach:\nfunction areAnagramsEfficient(str1, str2) {\n  const clean1 = str1.toLowerCase().replace(/\\s/g, '');\n  const clean2 = str2.toLowerCase().replace(/\\s/g, '');\n  if (clean1.length !== clean2.length) return false;\n  const freq = {};\n  for (const char of clean1) freq[char] = (freq[char] || 0) + 1;\n  for (const char of clean2) {\n    if (!freq[char]) return false;\n    freq[char]--;\n  }\n  return true;\n}",
+    "explanation": "Sort both strings and compare, or use frequency map for O(n) efficiency."
+  },
+  {
+    "id": "capitalize-words",
+    "slug": "capitalize-words",
+    "title": "Capitalize First Letter of Every Word",
+    "category": "JavaScript Basics",
+    "difficulty": "easy",
+    "problem": "Write a function to capitalize the first letter of every word in a sentence.",
+    "solution": "function capitalizeBySplit(str) {\n  return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');\n}\n\n// Using regex:\nfunction capitalizeByRegex(str) {\n  return str.replace(/\\b\\w/g, char => char.toUpperCase());\n}\n\n// Manual approach:\nfunction capitalizeManual(str) {\n  let result = '';\n  let capitalizeNext = true;\n  for (const char of str) {\n    if (char === ' ') {\n      capitalizeNext = true;\n      result += char;\n    } else if (capitalizeNext) {\n      result += char.toUpperCase();\n      capitalizeNext = false;\n    } else {\n      result += char;\n    }\n  }\n  return result;\n}",
+    "explanation": "Split by spaces and capitalize first char of each word, or use regex with word boundary."
+  },
+  {
+    "id": "remove-duplicates-string",
+    "slug": "remove-duplicates-string",
+    "title": "Remove Duplicate Characters",
+    "category": "JavaScript Basics",
+    "difficulty": "easy",
+    "problem": "Write a function to remove duplicate characters from a string.",
+    "solution": "function removeDuplicates(str) {\n  return [...new Set(str)].join('');\n}\n\n// Preserve order:\nfunction removeDuplicatesPreserve(str) {\n  const seen = new Set();\n  let result = '';\n  for (const char of str) {\n    if (!seen.has(char)) {\n      seen.add(char);\n      result += char;\n    }\n  }\n  return result;\n}",
+    "explanation": "Use Set for unique characters. Set automatically removes duplicates."
+  },
+  {
+    "id": "compress-string",
+    "slug": "compress-string",
+    "title": "Compress String",
+    "category": "JavaScript Basics",
+    "difficulty": "easy",
+    "problem": "Write a function to compress a string like \"aaabbc\" into \"a3b2c1\".",
+    "solution": "function compressString(str) {\n  if (str.length <= 2) return str;\n  let compressed = '';\n  let count = 1;\n  for (let i = 0; i < str.length; i++) {\n    if (i + 1 >= str.length || str[i] !== str[i + 1]) {\n      compressed += str[i] + count;\n      count = 1;\n    } else {\n      count++;\n    }\n  }\n  return compressed.length < str.length ? compressed : str;\n}",
+    "explanation": "Iterate through and count consecutive characters, build compressed string."
+  },
+  {
+    "id": "longest-word",
+    "slug": "longest-word",
+    "title": "Find Longest Word in Sentence",
+    "category": "JavaScript Basics",
+    "difficulty": "easy",
+    "problem": "Write a function to find the longest word in a sentence.",
+    "solution": "function findLongestWord(sentence) {\n  return sentence.split(' ').reduce((longest, word) => \n    word.length > longest.length ? word : longest\n  );\n}\n\n// Using for loop:\nfunction findLongestWordLoop(sentence) {\n  const words = sentence.split(' ');\n  let longest = '';\n  for (const word of words) {\n    if (word.length > longest.length) longest = word;\n  }\n  return longest;\n}",
+    "explanation": "Split by spaces and find word with maximum length."
+  },
+  {
+    "id": "safe-json-parse",
+    "slug": "safe-json-parse",
+    "title": "Safely Parse JSON",
+    "category": "JavaScript Basics",
+    "difficulty": "easy",
+    "problem": "Write a function to safely parse JSON and return null on invalid input.",
+    "solution": "function safeJsonParse(jsonString) {\n  try {\n    return JSON.parse(jsonString);\n  } catch (e) {\n    return null;\n  }\n}\n\n// With optional default value:\nfunction safeJsonParseWithDefault(jsonString, defaultValue = null) {\n  try {\n    return JSON.parse(jsonString);\n  } catch (e) {\n    return defaultValue;\n  }\n}",
+    "explanation": "Wrap JSON.parse in try-catch to handle parse errors gracefully."
+  },
+  {
+    "id": "remove-array-duplicates",
+    "slug": "remove-array-duplicates",
+    "title": "Remove Duplicates from Array",
+    "category": "Arrays and Objects",
+    "difficulty": "easy",
+    "problem": "Write a function to remove duplicates from an array.",
+    "solution": "function removeDuplicatesArray(arr) {\n  return [...new Set(arr)];\n}\n\n// Preserve order with object:\nfunction removeDuplicatesPreserveOrder(arr) {\n  const seen = {};\n  return arr.filter(item => {\n    if (seen[item]) return false;\n    seen[item] = true;\n    return true;\n  });\n}\n\n// For objects/complex types:\nfunction removeDuplicatesObjects(arr, key) {\n  const seen = new Set();\n  return arr.filter(item => {\n    if (seen.has(item[key])) return false;\n    seen.add(item[key]);\n    return true;\n  });\n}",
+    "explanation": "Use Set for primitives, or filter with Set/object for complex types."
+  },
+  {
+    "id": "flatten-array",
+    "slug": "flatten-array",
+    "title": "Flatten Nested Array",
+    "category": "Arrays and Objects",
+    "difficulty": "medium",
+    "problem": "Write a function to flatten a nested array of unknown depth.",
+    "solution": "function flattenArray(arr) {\n  return arr.reduce((flat, item) => \n    flat.concat(Array.isArray(item) ? flattenArray(item) : item), []\n  );\n}\n\n// Using flat():\nfunction flattenArrayBuiltin(arr) {\n  return arr.flat(Infinity);\n}\n\n// Iterative approach:\nfunction flattenArrayIterative(arr) {\n  const result = [];\n  const stack = [...arr].reverse();\n  while (stack.length) {\n    const item = stack.pop();\n    if (Array.isArray(item)) {\n      stack.push(...item.reverse());\n    } else {\n      result.push(item);\n    }\n  }\n  return result;\n}",
+    "explanation": "Recursive approach checks if item is array and flattens recursively."
+  },
+  {
+    "id": "second-largest-number",
+    "slug": "second-largest-number",
+    "title": "Find Second Largest Number",
+    "category": "Arrays and Objects",
+    "difficulty": "easy",
+    "problem": "Write a function to find the second largest number in an array.",
+    "solution": "function findSecondLargest(arr) {\n  if (arr.length < 2) return null;\n  const sorted = [...new Set(arr)].sort((a, b) => b - a);\n  return sorted.length < 2 ? null : sorted[1];\n}\n\n// Single pass O(n):\nfunction findSecondLargestEfficient(arr) {\n  if (arr.length < 2) return null;\n  let largest = -Infinity, secondLargest = -Infinity;\n  for (const num of arr) {\n    if (num > largest) {\n      secondLargest = largest;\n      largest = num;\n    } else if (num > secondLargest && num !== largest) {\n      secondLargest = num;\n    }\n  }\n  return secondLargest === -Infinity ? null : secondLargest;\n}",
+    "explanation": "Sort descending and get second element, or track largest/second in single pass."
+  },
+  {
+    "id": "rotate-array",
+    "slug": "rotate-array",
+    "title": "Rotate Array by k Positions",
+    "category": "Arrays and Objects",
+    "difficulty": "medium",
+    "problem": "Write a function to rotate an array by k positions.",
+    "solution": "function rotateArray(arr, k) {\n  const n = arr.length;\n  k = k % n; // Handle k > n\n  return arr.slice(-k).concat(arr.slice(0, n - k));\n}\n\n// Reverse approach O(n) time, O(1) space:\nfunction rotateArrayOptimal(arr, k) {\n  k = k % arr.length;\n  if (k === 0) return arr;\n  \n  function reverse(start, end) {\n    while (start < end) {\n      [arr[start], arr[end]] = [arr[end], arr[start]];\n      start++;\n      end--;\n    }\n  }\n  \n  reverse(0, arr.length - 1);\n  reverse(0, k - 1);\n  reverse(k, arr.length - 1);\n  return arr;\n}",
+    "explanation": "Slice and concat or use three reversals for O(1) space complexity."
+  },
+  {
+    "id": "move-zeroes",
+    "slug": "move-zeroes",
+    "title": "Move All Zeroes to End",
+    "category": "Arrays and Objects",
+    "difficulty": "easy",
+    "problem": "Write a function to move all zeroes to the end of an array.",
+    "solution": "function moveZeroesToEnd(arr) {\n  const nonZeros = arr.filter(num => num !== 0);\n  const zeros = arr.length - nonZeros.length;\n  return [...nonZeros, ...Array(zeros).fill(0)];\n}\n\n// In-place approach:\nfunction moveZeroesToEndInPlace(arr) {\n  let insertPos = 0;\n  for (let i = 0; i < arr.length; i++) {\n    if (arr[i] !== 0) {\n      arr[insertPos] = arr[i];\n      insertPos++;\n    }\n  }\n  while (insertPos < arr.length) {\n    arr[insertPos] = 0;\n    insertPos++;\n  }\n  return arr;\n}",
+    "explanation": "Filter non-zeros and append zeros, or use two-pointer in-place swap."
+  },
+  {
+    "id": "array-intersection",
+    "slug": "array-intersection",
+    "title": "Find Intersection of Two Arrays",
+    "category": "Arrays and Objects",
+    "difficulty": "easy",
+    "problem": "Write a function to find the intersection of two arrays.",
+    "solution": "function findIntersection(arr1, arr2) {\n  const set2 = new Set(arr2);\n  return [...new Set(arr1.filter(item => set2.has(item)))];\n}\n\n// Alternative:\nfunction findIntersectionAlt(arr1, arr2) {\n  const map = {};\n  for (const item of arr1) map[item] = true;\n  return [...new Set(arr2.filter(item => map[item]))];\n}",
+    "explanation": "Convert one array to Set, filter other array by set membership."
+  },
+  {
+    "id": "array-union",
+    "slug": "array-union",
+    "title": "Find Union of Two Arrays",
+    "category": "Arrays and Objects",
+    "difficulty": "easy",
+    "problem": "Write a function to find the union of two arrays.",
+    "solution": "function findUnion(arr1, arr2) {\n  return [...new Set([...arr1, ...arr2])];\n}\n\n// Alternative:\nfunction findUnionAlt(arr1, arr2) {\n  const result = [...arr1];\n  const set = new Set(arr1);\n  for (const item of arr2) {\n    if (!set.has(item)) result.push(item);\n  }\n  return result;\n}",
+    "explanation": "Combine arrays and remove duplicates using Set."
+  },
+  {
+    "id": "group-by-key",
+    "slug": "group-by-key",
+    "title": "Group Array of Objects by Key",
+    "category": "Arrays and Objects",
+    "difficulty": "easy",
+    "problem": "Write a function to group an array of objects by a key.",
+    "solution": "function groupByKey(arr, key) {\n  return arr.reduce((grouped, item) => {\n    const groupKey = item[key];\n    if (!grouped[groupKey]) grouped[groupKey] = [];\n    grouped[groupKey].push(item);\n    return grouped;\n  }, {});\n}\n\n// Alternative with Map:\nfunction groupByKeyMap(arr, key) {\n  const grouped = new Map();\n  arr.forEach(item => {\n    const groupKey = item[key];\n    if (!grouped.has(groupKey)) grouped.set(groupKey, []);\n    grouped.get(groupKey).push(item);\n  });\n  return grouped;\n}",
+    "explanation": "Reduce over array, accumulating items grouped by key value."
+  },
+  {
+    "id": "sort-by-timestamp",
+    "slug": "sort-by-timestamp",
+    "title": "Sort Array of Objects by Timestamp",
+    "category": "Arrays and Objects",
+    "difficulty": "easy",
+    "problem": "Write a function to sort an array of objects by timestamp.",
+    "solution": "function sortByTimestamp(arr, key = 'timestamp') {\n  return arr.sort((a, b) => new Date(a[key]) - new Date(b[key]));\n}\n\n// Non-mutating:\nfunction sortByTimestampImmutable(arr, key = 'timestamp') {\n  return [...arr].sort((a, b) => new Date(a[key]) - new Date(b[key]));\n}\n\n// Descending:\nfunction sortByTimestampDesc(arr, key = 'timestamp') {\n  return [...arr].sort((a, b) => new Date(b[key]) - new Date(a[key]));\n}",
+    "explanation": "Use array.sort() with comparison of Date objects from timestamp fields."
+  },
+  {
+    "id": "deep-clone",
+    "slug": "deep-clone",
+    "title": "Deep Clone an Object",
+    "category": "Arrays and Objects",
+    "difficulty": "medium",
+    "problem": "Write a function to deep clone an object without using libraries.",
+    "solution": "function deepClone(obj) {\n  if (obj === null || typeof obj !== 'object') return obj;\n  if (obj instanceof Date) return new Date(obj.getTime());\n  if (obj instanceof Array) return obj.map(item => deepClone(item));\n  if (obj instanceof Object) {\n    const cloned = {};\n    for (const key in obj) {\n      if (obj.hasOwnProperty(key)) {\n        cloned[key] = deepClone(obj[key]);\n      }\n    }\n    return cloned;\n  }\n}\n\n// Using JSON (works for serializable objects):\nfunction deepCloneJSON(obj) {\n  return JSON.parse(JSON.stringify(obj));\n}",
+    "explanation": "Recursively clone objects, arrays, and dates. JSON method simple but loses functions."
+  },
+  {
+    "id": "deep-equality",
+    "slug": "deep-equality",
+    "title": "Compare Objects for Deep Equality",
+    "category": "Arrays and Objects",
+    "difficulty": "medium",
+    "problem": "Write a function to compare two objects for deep equality.",
+    "solution": "function deepEqual(obj1, obj2) {\n  if (obj1 === obj2) return true;\n  if (obj1 === null || obj2 === null) return false;\n  if (typeof obj1 !== 'object' || typeof obj2 !== 'object') return false;\n  \n  const keys1 = Object.keys(obj1);\n  const keys2 = Object.keys(obj2);\n  \n  if (keys1.length !== keys2.length) return false;\n  \n  for (const key of keys1) {\n    if (!keys2.includes(key)) return false;\n    if (!deepEqual(obj1[key], obj2[key])) return false;\n  }\n  return true;\n}",
+    "explanation": "Recursively compare keys and values of objects."
+  },
+  {
+    "id": "chunk-array",
+    "slug": "chunk-array",
+    "title": "Convert Array into Chunks",
+    "category": "Arrays and Objects",
+    "difficulty": "easy",
+    "problem": "Write a function to convert an array into chunks of size k.",
+    "solution": "function chunkArray(arr, k) {\n  const chunks = [];\n  for (let i = 0; i < arr.length; i += k) {\n    chunks.push(arr.slice(i, i + k));\n  }\n  return chunks;\n}\n\n// Using reduce:\nfunction chunkArrayReduce(arr, k) {\n  return arr.reduce((chunks, item, i) => {\n    if (i % k === 0) chunks.push([]);\n    chunks[chunks.length - 1].push(item);\n    return chunks;\n  }, []);\n}",
+    "explanation": "Slice array into k-sized chunks or use reduce to accumulate."
+  },
+  {
+    "id": "find-duplicates-count",
+    "slug": "find-duplicates-count",
+    "title": "Find Duplicates and Return Counts",
+    "category": "Arrays and Objects",
+    "difficulty": "easy",
+    "problem": "Write a function to find duplicates in an array and return their counts.",
+    "solution": "function findDuplicates(arr) {\n  const freq = {};\n  arr.forEach(item => {\n    freq[item] = (freq[item] || 0) + 1;\n  });\n  return Object.entries(freq).filter(([_, count]) => count > 1).reduce((dup, [item, count]) => {\n    dup[item] = count;\n    return dup;\n  }, {});\n}\n\n// Using Map:\nfunction findDuplicatesMap(arr) {\n  const freq = new Map();\n  arr.forEach(item => {\n    freq.set(item, (freq.get(item) || 0) + 1);\n  });\n  return Object.fromEntries([...freq.entries()].filter(([_, count]) => count > 1));\n}",
+    "explanation": "Count all items, filter those with count > 1."
+  },
+  {
+    "id": "merge-sorted-arrays",
+    "slug": "merge-sorted-arrays",
+    "title": "Merge Two Sorted Arrays",
+    "category": "Arrays and Objects",
+    "difficulty": "easy",
+    "problem": "Write a function to merge two sorted arrays.",
+    "solution": "function mergeSortedArrays(arr1, arr2) {\n  return [...arr1, ...arr2].sort((a, b) => a - b);\n}\n\n// Two pointer approach O(n):\nfunction mergeSortedArraysTwoPointer(arr1, arr2) {\n  const result = [];\n  let i = 0, j = 0;\n  while (i < arr1.length && j < arr2.length) {\n    if (arr1[i] <= arr2[j]) {\n      result.push(arr1[i++]);\n    } else {\n      result.push(arr2[j++]);\n    }\n  }\n  return [...result, ...arr1.slice(i), ...arr2.slice(j)];\n}",
+    "explanation": "Combine and sort, or use two pointers for O(n) merging."
+  },
+  {
+    "id": "missing-number",
+    "slug": "missing-number",
+    "title": "Find Missing Number from 1 to n",
+    "category": "Arrays and Objects",
+    "difficulty": "easy",
+    "problem": "Write a function to find the missing number in an array from 1 to n.",
+    "solution": "function findMissing(arr) {\n  const n = arr.length + 1;\n  const expectedSum = (n * (n + 1)) / 2;\n  const actualSum = arr.reduce((sum, num) => sum + num, 0);\n  return expectedSum - actualSum;\n}\n\n// Using Set:\nfunction findMissingSet(arr) {\n  const set = new Set(arr);\n  for (let i = 1; i <= arr.length + 1; i++) {\n    if (!set.has(i)) return i;\n  }\n}",
+    "explanation": "Use sum formula or iterate with Set for O(n) time."
+  },
+  {
+    "id": "two-sum-problem",
+    "slug": "two-sum-problem",
+    "title": "Two Sum Problem",
+    "category": "Hashing and Frequency",
+    "difficulty": "easy",
+    "problem": "Write a function to solve Two Sum (find two numbers that sum to target).",
+    "solution": "function twoSum(arr, target) {\n  const seen = {};\n  for (let i = 0; i < arr.length; i++) {\n    const complement = target - arr[i];\n    if (seen[complement] !== undefined) {\n      return [seen[complement], i];\n    }\n    seen[arr[i]] = i;\n  }\n  return null;\n}\n\n// All pairs:\nfunction twoSumAll(arr, target) {\n  const seen = new Set();\n  const pairs = [];\n  for (const num of arr) {\n    const complement = target - num;\n    if (seen.has(complement)) {\n      pairs.push([complement, num]);\n    }\n    seen.add(num);\n  }\n  return pairs;\n}",
+    "explanation": "Use hash map to track seen numbers and find complement for each number."
+  },
+  {
+    "id": "top-k-frequent",
+    "slug": "top-k-frequent",
+    "title": "Top k Most Frequent Elements",
+    "category": "Hashing and Frequency",
+    "difficulty": "medium",
+    "problem": "Write a function to return the top k most frequent elements in an array.",
+    "solution": "function topKFrequent(arr, k) {\n  const freq = {};\n  for (const num of arr) {\n    freq[num] = (freq[num] || 0) + 1;\n  }\n  return Object.entries(freq)\n    .sort((a, b) => b[1] - a[1])\n    .slice(0, k)\n    .map(([num]) => parseInt(num));\n}\n\n// Using heap (min-heap):\nfunction topKFrequentHeap(arr, k) {\n  const freq = new Map();\n  for (const num of arr) {\n    freq.set(num, (freq.get(num) || 0) + 1);\n  }\n  const heap = [...freq.entries()].sort((a, b) => b[1] - a[1]);\n  return heap.slice(0, k).map(([num]) => num);\n}",
+    "explanation": "Count frequencies, sort by count descending, return top k."
+  },
+  {
+    "id": "majority-element",
+    "slug": "majority-element",
+    "title": "Find Majority Element",
+    "category": "Hashing and Frequency",
+    "difficulty": "easy",
+    "problem": "Write a function to find the majority element in an array.",
+    "solution": "function majorityElement(arr) {\n  const freq = {};\n  const target = Math.floor(arr.length / 2);\n  for (const num of arr) {\n    freq[num] = (freq[num] || 0) + 1;\n    if (freq[num] > target) return num;\n  }\n  return null;\n}\n\n// Boyer-Moore voting algorithm O(1) space:\nfunction majorityElementOptimal(arr) {\n  let candidate = null, count = 0;\n  for (const num of arr) {\n    if (count === 0) candidate = num;\n    count += (num === candidate) ? 1 : -1;\n  }\n  return candidate;\n}",
+    "explanation": "Count frequencies or use Boyer-Moore algorithm for O(1) space."
+  },
+  {
+    "id": "word-frequency",
+    "slug": "word-frequency",
+    "title": "Count Word Frequencies in Sentence",
+    "category": "Hashing and Frequency",
+    "difficulty": "easy",
+    "problem": "Write a function to count how many times each word appears in a sentence.",
+    "solution": "function countWords(sentence) {\n  return sentence.toLowerCase()\n    .split(/\\s+/)\n    .reduce((freq, word) => {\n      const clean = word.replace(/[^a-z0-9]/g, '');\n      if (clean) freq[clean] = (freq[clean] || 0) + 1;\n      return freq;\n    }, {});\n}\n\n// Using Map:\nfunction countWordsMap(sentence) {\n  const freq = new Map();\n  sentence.toLowerCase().split(/\\s+/).forEach(word => {\n    const clean = word.replace(/[^a-z0-9]/g, '');\n    if (clean) freq.set(clean, (freq.get(clean) || 0) + 1);\n  });\n  return freq;\n}",
+    "explanation": "Split by whitespace, clean punctuation, count each word."
+  },
+  {
+    "id": "sum-pairs",
+    "slug": "sum-pairs",
+    "title": "Find All Pairs with Target Sum",
+    "category": "Hashing and Frequency",
+    "difficulty": "medium",
+    "problem": "Write a function to find all pairs in an array whose sum equals a target.",
+    "solution": "function findAllPairs(arr, target) {\n  const seen = new Set();\n  const pairs = new Set();\n  for (const num of arr) {\n    const complement = target - num;\n    if (seen.has(complement)) {\n      const pair = [Math.min(num, complement), Math.max(num, complement)];\n      pairs.add(JSON.stringify(pair));\n    }\n    seen.add(num);\n  }\n  return Array.from(pairs).map(p => JSON.parse(p));\n}",
+    "explanation": "Use Set to track seen numbers, find complements, avoid duplicates with sorted pairs."
+  },
+  {
+    "id": "three-sum",
+    "slug": "three-sum",
+    "title": "Find All Triplets with Sum Zero",
+    "category": "Hashing and Frequency",
+    "difficulty": "medium",
+    "problem": "Write a function to find all unique triplets whose sum equals zero.",
+    "solution": "function threeSum(arr) {\n  const sorted = arr.sort((a, b) => a - b);\n  const triplets = [];\n  for (let i = 0; i < sorted.length - 2; i++) {\n    if (i > 0 && sorted[i] === sorted[i - 1]) continue; // skip duplicates\n    let left = i + 1, right = sorted.length - 1;\n    while (left < right) {\n      const sum = sorted[i] + sorted[left] + sorted[right];\n      if (sum === 0) {\n        triplets.push([sorted[i], sorted[left], sorted[right]]);\n        while (left < right && sorted[left] === sorted[left + 1]) left++;\n        while (left < right && sorted[right] === sorted[right - 1]) right--;\n        left++;\n        right--;\n      } else if (sum < 0) {\n        left++;\n      } else {\n        right--;\n      }\n    }\n  }\n  return triplets;\n}",
+    "explanation": "Sort array, fix one element, use two pointers to find pairs that sum to -element."
+  },
+  {
+    "id": "duplicates-distance-k",
+    "slug": "duplicates-distance-k",
+    "title": "Detect Duplicates Within Distance k",
+    "category": "Hashing and Frequency",
+    "difficulty": "medium",
+    "problem": "Write a function to detect whether an array contains duplicates within distance k.",
+    "solution": "function hasDuplicatesWithinK(arr, k) {\n  const window = new Set();\n  for (let i = 0; i < arr.length; i++) {\n    if (window.has(arr[i])) return true;\n    window.add(arr[i]);\n    if (window.size > k) {\n      window.delete(arr[i - k]);\n    }\n  }\n  return false;\n}",
+    "explanation": "Use sliding window Set of size k+1, check if current element is in window."
+  },
+  {
+    "id": "first-repeated",
+    "slug": "first-repeated",
+    "title": "Find First Repeated Number",
+    "category": "Hashing and Frequency",
+    "difficulty": "easy",
+    "problem": "Write a function to return the first repeated number in an array.",
+    "solution": "function firstRepeated(arr) {\n  const seen = new Set();\n  for (const num of arr) {\n    if (seen.has(num)) return num;\n    seen.add(num);\n  }\n  return null;\n}",
+    "explanation": "Track seen numbers, return first duplicate found."
+  },
+  {
+    "id": "flatten-object",
+    "slug": "flatten-object",
+    "title": "Flatten Nested Object",
+    "category": "Recursion and Traversal",
+    "difficulty": "medium",
+    "problem": "Write a recursive function to flatten a nested object.",
+    "solution": "function flattenObject(obj, parent = '', result = {}) {\n  for (const key in obj) {\n    if (obj.hasOwnProperty(key)) {\n      const newKey = parent ? `${parent}.${key}` : key;\n      if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {\n        flattenObject(obj[key], newKey, result);\n      } else {\n        result[newKey] = obj[key];\n      }\n    }\n  }\n  return result;\n}",
+    "explanation": "Recursively traverse object, concatenating keys with dots for nested properties."
+  },
+  {
+    "id": "factorial",
+    "slug": "factorial",
+    "title": "Calculate Factorial Recursively",
+    "category": "Recursion and Traversal",
+    "difficulty": "easy",
+    "problem": "Write a recursive function to calculate factorial.",
+    "solution": "function factorial(n) {\n  if (n < 0) return null;\n  if (n === 0 || n === 1) return 1;\n  return n * factorial(n - 1);\n}\n\n// With memoization:\nfunction factorialMemo() {\n  const memo = {};\n  return function calculate(n) {\n    if (n in memo) return memo[n];\n    if (n === 0 || n === 1) return 1;\n    memo[n] = n * calculate(n - 1);\n    return memo[n];\n  };\n}",
+    "explanation": "Base case at 0/1, recursive case multiplies by previous factorial."
+  },
+  {
+    "id": "fibonacci",
+    "slug": "fibonacci",
+    "title": "Generate Fibonacci Numbers",
+    "category": "Recursion and Traversal",
+    "difficulty": "easy",
+    "problem": "Write a recursive function to generate Fibonacci numbers up to n.",
+    "solution": "function fibonacci(n) {\n  if (n <= 0) return [];\n  const fib = [0, 1];\n  for (let i = 2; i < n; i++) {\n    fib[i] = fib[i - 1] + fib[i - 2];\n  }\n  return fib.slice(0, n);\n}\n\n// Pure recursive:\nfunction fibonacciRecursive(n) {\n  if (n <= 0) return [];\n  if (n === 1) return [0];\n  const prev = fibonacciRecursive(n - 1);\n  return [...prev, prev[prev.length - 1] + (prev[prev.length - 2] || 0)];\n}",
+    "explanation": "Iterative approach most efficient. Each term is sum of previous two."
+  },
+  {
+    "id": "traverse-tree-json",
+    "slug": "traverse-tree-json",
+    "title": "Traverse Tree-like JSON Structure",
+    "category": "Recursion and Traversal",
+    "difficulty": "medium",
+    "problem": "Write a recursive function to traverse a tree-like JSON structure.",
+    "solution": "function traverseTree(node, callback) {\n  callback(node);\n  if (node.children && Array.isArray(node.children)) {\n    node.children.forEach(child => traverseTree(child, callback));\n  }\n}\n\n// Collect all values:\nfunction collectTreeValues(node) {\n  let values = [node.value];\n  if (node.children && Array.isArray(node.children)) {\n    node.children.forEach(child => {\n      values = values.concat(collectTreeValues(child));\n    });\n  }\n  return values;\n}\n\n// Find node:\nfunction findInTree(node, predicate) {\n  if (predicate(node)) return node;\n  if (node.children && Array.isArray(node.children)) {\n    for (const child of node.children) {\n      const result = findInTree(child, predicate);\n      if (result) return result;\n    }\n  }\n  return null;\n}",
+    "explanation": "Recursively visit node, then recursively visit all children."
+  },
+  {
+    "id": "dfs-graph",
+    "slug": "dfs-graph",
+    "title": "DFS on Graph (Adjacency List)",
+    "category": "Recursion and Traversal",
+    "difficulty": "medium",
+    "problem": "Write a function to perform DFS on a graph stored as an adjacency list.",
+    "solution": "function dfs(graph, start, visited = new Set()) {\n  visited.add(start);\n  const result = [start];\n  for (const neighbor of graph[start] || []) {\n    if (!visited.has(neighbor)) {\n      result.push(...dfs(graph, neighbor, visited));\n    }\n  }\n  return result;\n}\n\n// Iterative:\nfunction dfsIterative(graph, start) {\n  const visited = new Set();\n  const stack = [start];\n  const result = [];\n  while (stack.length > 0) {\n    const node = stack.pop();\n    if (!visited.has(node)) {\n      visited.add(node);\n      result.push(node);\n      for (const neighbor of (graph[node] || []).reverse()) {\n        if (!visited.has(neighbor)) stack.push(neighbor);\n      }\n    }\n  }\n  return result;\n}",
+    "explanation": "Mark visited, visit current, recursively visit unvisited neighbors."
+  },
+  {
+    "id": "bfs-graph",
+    "slug": "bfs-graph",
+    "title": "BFS on Graph (Adjacency List)",
+    "category": "Recursion and Traversal",
+    "difficulty": "medium",
+    "problem": "Write a function to perform BFS on a graph stored as an adjacency list.",
+    "solution": "function bfs(graph, start) {\n  const visited = new Set([start]);\n  const queue = [start];\n  const result = [start];\n  \n  while (queue.length > 0) {\n    const node = queue.shift();\n    for (const neighbor of graph[node] || []) {\n      if (!visited.has(neighbor)) {\n        visited.add(neighbor);\n        queue.push(neighbor);\n        result.push(neighbor);\n      }\n    }\n  }\n  return result;\n}",
+    "explanation": "Use queue for level-order traversal. Visit neighbors level by level."
+  },
+  {
+    "id": "detect-cycle",
+    "slug": "detect-cycle",
+    "title": "Detect Cycle in Directed Graph",
+    "category": "Recursion and Traversal",
+    "difficulty": "medium",
+    "problem": "Write a function to detect a cycle in a directed graph.",
+    "solution": "function hasCycle(graph) {\n  const visited = new Set();\n  const recStack = new Set();\n  \n  function dfs(node) {\n    visited.add(node);\n    recStack.add(node);\n    \n    for (const neighbor of graph[node] || []) {\n      if (!visited.has(neighbor)) {\n        if (dfs(neighbor)) return true;\n      } else if (recStack.has(neighbor)) {\n        return true;\n      }\n    }\n    recStack.delete(node);\n    return false;\n  }\n  \n  for (const node in graph) {\n    if (!visited.has(node) && dfs(node)) return true;\n  }\n  return false;\n}",
+    "explanation": "Use DFS with recursion stack. Cycle exists if visiting node already in stack."
+  },
+  {
+    "id": "promise-delay",
+    "slug": "promise-delay",
+    "title": "Promise Resolving After Delay",
+    "category": "Promises and Async",
+    "difficulty": "easy",
+    "problem": "Write a function that returns a Promise resolving after n milliseconds.",
+    "solution": "function delay(ms) {\n  return new Promise(resolve => setTimeout(resolve, ms));\n}\n\n// With value:\nfunction delayWithValue(ms, value) {\n  return new Promise(resolve => setTimeout(() => resolve(value), ms));\n}"
+  },
+  {
+    "id": "async-sequence",
+    "slug": "async-sequence",
+    "title": "Run Async Functions in Sequence",
+    "category": "Promises and Async",
+    "difficulty": "easy",
+    "problem": "Write a function to run three async functions in sequence.",
+    "solution": "async function sequentialAsync(fn1, fn2, fn3) {\n  const result1 = await fn1();\n  const result2 = await fn2();\n  const result3 = await fn3();\n  return { result1, result2, result3 };\n}\n\n// Using reduce:\nasync function runSequential(fns) {\n  return fns.reduce(async (prev, fn) => {\n    await prev;\n    return fn();\n  }, Promise.resolve());\n}"
+  },
+  {
+    "id": "async-parallel",
+    "slug": "async-parallel",
+    "title": "Run Async Tasks in Parallel",
+    "category": "Promises and Async",
+    "difficulty": "easy",
+    "problem": "Write a function to run async tasks in parallel and collect results.",
+    "solution": "async function parallelAsync(fn1, fn2, fn3) {\n  return Promise.all([fn1(), fn2(), fn3()]);\n}\n\n// Collect with labels:\nasync function parallelWithLabels(tasks) {\n  const results = await Promise.all(tasks.map(t => t.fn()));\n  return tasks.reduce((acc, task, i) => {\n    acc[task.label] = results[i];\n    return acc;\n  }, {});\n}"
+  },
+  {
+    "id": "concurrency-limit",
+    "slug": "concurrency-limit",
+    "title": "Limit Concurrency to k Async Tasks",
+    "category": "Promises and Async",
+    "difficulty": "medium",
+    "problem": "Write a function to limit concurrency to k async tasks at a time.",
+    "solution": "async function limitConcurrency(tasks, k) {\n  const results = [];\n  for (let i = 0; i < tasks.length; i += k) {\n    const batch = tasks.slice(i, i + k);\n    const batchResults = await Promise.all(batch.map(t => t()));\n    results.push(...batchResults);\n  }\n  return results;\n}\n\n// More elegant:\nasync function concurrencyQueue(tasks, limit) {\n  const results = [];\n  const executing = [];\n  \n  for (const [index, task] of tasks.entries()) {\n    const p = Promise.resolve().then(() => task()).then(result => {\n      results[index] = result;\n    });\n    \n    results[index] = p;\n    \n    if (tasks.length >= limit) {\n      executing.push(p);\n      p.then(() => executing.splice(executing.indexOf(p), 1));\n      if (executing.length >= limit) {\n        await Promise.race(executing);\n      }\n    }\n  }\n  \n  await Promise.all(results);\n  return results;\n}"
+  },
+  {
+    "id": "retry-wrapper",
+    "slug": "retry-wrapper",
+    "title": "Retry Wrapper for Async Function",
+    "category": "Promises and Async",
+    "difficulty": "medium",
+    "problem": "Write a retry wrapper for an async function with max retries.",
+    "solution": "async function retry(fn, maxRetries = 3) {\n  for (let i = 0; i < maxRetries; i++) {\n    try {\n      return await fn();\n    } catch (error) {\n      if (i === maxRetries - 1) throw error;\n    }\n  }\n}\n\n// With logging:\nasync function retryWithLog(fn, maxRetries = 3) {\n  for (let i = 0; i < maxRetries; i++) {\n    try {\n      return await fn();\n    } catch (error) {\n      console.log(`Attempt ${i + 1} failed:`, error.message);\n      if (i === maxRetries - 1) throw error;\n    }\n  }\n}"
+  },
+  {
+    "id": "retry-exponential",
+    "slug": "retry-exponential",
+    "title": "Retry with Exponential Backoff",
+    "category": "Promises and Async",
+    "difficulty": "medium",
+    "problem": "Write a retry wrapper with exponential backoff.",
+    "solution": "async function retryWithBackoff(fn, maxRetries = 3, baseDelay = 1000) {\n  for (let i = 0; i < maxRetries; i++) {\n    try {\n      return await fn();\n    } catch (error) {\n      if (i === maxRetries - 1) throw error;\n      const delay = baseDelay * Math.pow(2, i);\n      await new Promise(resolve => setTimeout(resolve, delay));\n    }\n  }\n}"
+  },
+  {
+    "id": "promise-timeout",
+    "slug": "promise-timeout",
+    "title": "Timeout Wrapper for Promise",
+    "category": "Promises and Async",
+    "difficulty": "easy",
+    "problem": "Write a timeout wrapper for a Promise.",
+    "solution": "function withTimeout(promise, ms) {\n  return Promise.race([\n    promise,\n    new Promise((_, reject) => \n      setTimeout(() => reject(new Error(`Timeout after ${ms}ms`)), ms)\n    )\n  ]);\n}"
+  },
+  {
+    "id": "promise-all-impl",
+    "slug": "promise-all-impl",
+    "title": "Implement Promise.all",
+    "category": "Promises and Async",
+    "difficulty": "medium",
+    "problem": "Write your own Promise.all implementation.",
+    "solution": "function promiseAll(promises) {\n  return new Promise((resolve, reject) => {\n    if (!Array.isArray(promises) || promises.length === 0) {\n      resolve([]);\n      return;\n    }\n    \n    const results = new Array(promises.length);\n    let fulfilled = 0;\n    \n    promises.forEach((promise, index) => {\n      Promise.resolve(promise)\n        .then(value => {\n          results[index] = value;\n          fulfilled++;\n          if (fulfilled === promises.length) resolve(results);\n        })\n        .catch(reject);\n    });\n  });\n}"
+  },
+  {
+    "id": "promise-race-impl",
+    "slug": "promise-race-impl",
+    "title": "Implement Promise.race",
+    "category": "Promises and Async",
+    "difficulty": "medium",
+    "problem": "Write your own Promise.race implementation.",
+    "solution": "function promiseRace(promises) {\n  return new Promise((resolve, reject) => {\n    if (!Array.isArray(promises) || promises.length === 0) {\n      return;\n    }\n    \n    for (const promise of promises) {\n      Promise.resolve(promise)\n        .then(resolve)\n        .catch(reject);\n    }\n  });\n}"
+  },
+  {
+    "id": "api-polling",
+    "slug": "api-polling",
+    "title": "Poll API Until Condition Met",
+    "category": "Promises and Async",
+    "difficulty": "medium",
+    "problem": "Write a function that polls an API every 5 seconds until a condition is met.",
+    "solution": "async function pollUntil(fn, condition, interval = 5000, maxAttempts = 60) {\n  for (let i = 0; i < maxAttempts; i++) {\n    const result = await fn();\n    if (condition(result)) return result;\n    if (i < maxAttempts - 1) {\n      await new Promise(resolve => setTimeout(resolve, interval));\n    }\n  }\n  throw new Error('Max polling attempts reached');\n}"
+  },
+  {
+    "id": "debounce",
+    "slug": "debounce",
+    "title": "Debounce Function",
+    "category": "Utility Functions",
+    "difficulty": "easy",
+    "problem": "Write your own debounce function.",
+    "solution": "function debounce(fn, delay) {\n  let timeoutId;\n  return function(...args) {\n    clearTimeout(timeoutId);\n    timeoutId = setTimeout(() => fn(...args), delay);\n  };\n}\n\n// With this binding:\nfunction debounceThis(fn, delay) {\n  let timeoutId;\n  return function(...args) {\n    clearTimeout(timeoutId);\n    timeoutId = setTimeout(() => fn.call(this, ...args), delay);\n  };\n}"
+  },
+  {
+    "id": "throttle",
+    "slug": "throttle",
+    "title": "Throttle Function",
+    "category": "Utility Functions",
+    "difficulty": "easy",
+    "problem": "Write your own throttle function.",
+    "solution": "function throttle(fn, delay) {\n  let lastCall = 0;\n  return function(...args) {\n    const now = Date.now();\n    if (now - lastCall >= delay) {\n      lastCall = now;\n      fn(...args);\n    }\n  };\n}\n\n// Leading and trailing options:\nfunction throttleAdvanced(fn, delay, { leading = true, trailing = true } = {}) {\n  let timeoutId, lastCall = 0;\n  return function(...args) {\n    const now = Date.now();\n    if (!lastCall && !leading) lastCall = now;\n    const remaining = delay - (now - lastCall);\n    if (remaining <= 0) {\n      clearTimeout(timeoutId);\n      fn(...args);\n      lastCall = now;\n    } else if (trailing) {\n      clearTimeout(timeoutId);\n      timeoutId = setTimeout(() => fn(...args), remaining);\n    }\n  };\n}"
+  },
+  {
+    "id": "once-function",
+    "slug": "once-function",
+    "title": "Once Function",
+    "category": "Utility Functions",
+    "difficulty": "easy",
+    "problem": "Write your own once function.",
+    "solution": "function once(fn) {\n  let called = false;\n  let result;\n  return function(...args) {\n    if (!called) {\n      called = true;\n      result = fn(...args);\n    }\n    return result;\n  };\n}"
+  },
+  {
+    "id": "memoize",
+    "slug": "memoize",
+    "title": "Memoize Function",
+    "category": "Utility Functions",
+    "difficulty": "medium",
+    "problem": "Write your own memoize function.",
+    "solution": "function memoize(fn) {\n  const cache = {};\n  return function(...args) {\n    const key = JSON.stringify(args);\n    if (key in cache) return cache[key];\n    const result = fn(...args);\n    cache[key] = result;\n    return result;\n  };\n}\n\n// With WeakMap for objects:\nfunction memoizeWeakMap(fn) {\n  const cache = new WeakMap();\n  return function(obj) {\n    if (cache.has(obj)) return cache.get(obj);\n    const result = fn(obj);\n    cache.set(obj, result);\n    return result;\n  };\n}"
+  },
+  {
+    "id": "map-function",
+    "slug": "map-function",
+    "title": "Implement Map Function",
+    "category": "Utility Functions",
+    "difficulty": "easy",
+    "problem": "Write your own map function.",
+    "solution": "function map(arr, callback) {\n  const result = [];\n  for (let i = 0; i < arr.length; i++) {\n    result.push(callback(arr[i], i, arr));\n  }\n  return result;\n}\n\n// Arrow function version:\nconst map2 = (arr, fn) => arr.reduce((acc, item, i) => [...acc, fn(item, i, arr)], []);"
+  },
+  {
+    "id": "filter-function",
+    "slug": "filter-function",
+    "title": "Implement Filter Function",
+    "category": "Utility Functions",
+    "difficulty": "easy",
+    "problem": "Write your own filter function.",
+    "solution": "function filter(arr, callback) {\n  const result = [];\n  for (let i = 0; i < arr.length; i++) {\n    if (callback(arr[i], i, arr)) {\n      result.push(arr[i]);\n    }\n  }\n  return result;\n}\n\n// Using reduce:\nconst filter2 = (arr, fn) => arr.reduce((acc, item, i) => fn(item, i, arr) ? [...acc, item] : acc, []);"
+  },
+  {
+    "id": "reduce-function",
+    "slug": "reduce-function",
+    "title": "Implement Reduce Function",
+    "category": "Utility Functions",
+    "difficulty": "easy",
+    "problem": "Write your own reduce function.",
+    "solution": "function reduce(arr, callback, initialValue) {\n  let accumulator = initialValue;\n  let startIndex = 0;\n  if (accumulator === undefined) {\n    accumulator = arr[0];\n    startIndex = 1;\n  }\n  for (let i = startIndex; i < arr.length; i++) {\n    accumulator = callback(accumulator, arr[i], i, arr);\n  }\n  return accumulator;\n}"
+  },
+  {
+    "id": "compose",
+    "slug": "compose",
+    "title": "Compose Multiple Functions",
+    "category": "Utility Functions",
+    "difficulty": "medium",
+    "problem": "Write a function to compose multiple functions from right to left.",
+    "solution": "function compose(...fns) {\n  return function(value) {\n    return fns.reduceRight((acc, fn) => fn(acc), value);\n  };\n}\n\n// Simple example:\nconst add5 = x => x + 5;\nconst multiply2 = x => x * 2;\nconst f = compose(add5, multiply2);\nconsole.log(f(3)); // (3 * 2) + 5 = 11"
+  },
+  {
+    "id": "pipe",
+    "slug": "pipe",
+    "title": "Pipe Multiple Functions",
+    "category": "Utility Functions",
+    "difficulty": "medium",
+    "problem": "Write a function to pipe multiple functions from left to right.",
+    "solution": "function pipe(...fns) {\n  return function(value) {\n    return fns.reduce((acc, fn) => fn(acc), value);\n  };\n}\n\n// Simple example:\nconst add5 = x => x + 5;\nconst multiply2 = x => x * 2;\nconst f = pipe(multiply2, add5);\nconsole.log(f(3)); // (3 * 2) + 5 = 11"
+  },
+  {
+    "id": "lru-cache",
+    "slug": "lru-cache",
+    "title": "LRU Cache Implementation",
+    "category": "Utility Functions",
+    "difficulty": "hard",
+    "problem": "Write an LRU cache implementation.",
+    "solution": "class LRUCache {\n  constructor(capacity) {\n    this.capacity = capacity;\n    this.cache = new Map();\n  }\n  \n  get(key) {\n    if (!this.cache.has(key)) return -1;\n    const value = this.cache.get(key);\n    this.cache.delete(key);\n    this.cache.set(key, value);\n    return value;\n  }\n  \n  put(key, value) {\n    if (this.cache.has(key)) {\n      this.cache.delete(key);\n    }\n    this.cache.set(key, value);\n    if (this.cache.size > this.capacity) {\n      const firstKey = this.cache.keys().next().value;\n      this.cache.delete(firstKey);\n    }\n  }\n}"
+  },
+  {
+    "id": "ttl-cache",
+    "slug": "ttl-cache",
+    "title": "Cache with TTL Support",
+    "category": "Utility Functions",
+    "difficulty": "medium",
+    "problem": "Write a simple in-memory cache with TTL support.",
+    "solution": "class TTLCache {\n  constructor() {\n    this.cache = new Map();\n  }\n  \n  set(key, value, ttl) {\n    if (this.cache.has(key)) clearTimeout(this.cache.get(key).timeout);\n    const timeout = setTimeout(() => this.cache.delete(key), ttl);\n    this.cache.set(key, { value, timeout });\n  }\n  \n  get(key) {\n    if (!this.cache.has(key)) return null;\n    return this.cache.get(key).value;\n  }\n  \n  delete(key) {\n    if (this.cache.has(key)) {\n      clearTimeout(this.cache.get(key).timeout);\n      this.cache.delete(key);\n    }\n  }\n}"
+  },
+  {
+    "id": "unique-id",
+    "slug": "unique-id",
+    "title": "Generate Unique Request ID",
+    "category": "Utility Functions",
+    "difficulty": "easy",
+    "problem": "Write a function to generate a unique request ID.",
+    "solution": "function generateUniqueId() {\n  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;\n}\n\n// UUID v4 style:\nfunction generateUUID() {\n  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {\n    const r = Math.random() * 16 | 0;\n    const v = c === 'x' ? r : (r & 0x3 | 0x8);\n    return v.toString(16);\n  });\n}"
+  },
+  {
+    "id": "express-health-check",
+    "slug": "express-health-check",
+    "title": "Express Health Check Route",
+    "category": "Express and API",
+    "difficulty": "easy",
+    "problem": "Write a basic Express server with one health-check route.",
+    "solution": "const express = require('express');\nconst app = express();\n\napp.get('/health', (req, res) => {\n  res.status(200).json({ status: 'ok', timestamp: new Date() });\n});\n\napp.listen(3000, () => {\n  console.log('Server running on port 3000');\n});"
+  },
+  {
+    "id": "express-get-user",
+    "slug": "express-get-user",
+    "title": "Express GET /users/:id Route",
+    "category": "Express and API",
+    "difficulty": "easy",
+    "problem": "Write an Express route for GET /users/:id.",
+    "solution": "app.get('/users/:id', (req, res) => {\n  const userId = req.params.id;\n  // Mock user lookup\n  const user = { id: userId, name: 'John', email: 'john@example.com' };\n  res.json(user);\n});"
+  },
+  {
+    "id": "express-post-user",
+    "slug": "express-post-user",
+    "title": "Express POST /users with Body Validation",
+    "category": "Express and API",
+    "difficulty": "easy",
+    "problem": "Write an Express route for POST /users with body validation.",
+    "solution": "app.use(express.json());\n\napp.post('/users', (req, res) => {\n  const { name, email } = req.body;\n  if (!name || !email) {\n    return res.status(400).json({ error: 'Name and email required' });\n  }\n  const user = { id: Date.now(), name, email };\n  res.status(201).json(user);\n});"
+  },
+  {
+    "id": "express-logging",
+    "slug": "express-logging",
+    "title": "Express Logging Middleware",
+    "category": "Express and API",
+    "difficulty": "easy",
+    "problem": "Write middleware to log method, URL, status code, and response time.",
+    "solution": "app.use((req, res, next) => {\n  const startTime = Date.now();\n  res.on('finish', () => {\n    const duration = Date.now() - startTime;\n    console.log(`${req.method} ${req.url} ${res.statusCode} ${duration}ms`);\n  });\n  next();\n});"
+  },
+  {
+    "id": "express-error-handling",
+    "slug": "express-error-handling",
+    "title": "Express Error Handling Middleware",
+    "category": "Express and API",
+    "difficulty": "easy",
+    "problem": "Write middleware for centralized error handling.",
+    "solution": "app.use((err, req, res, next) => {\n  console.error(err.stack);\n  res.status(err.status || 500).json({\n    error: err.message || 'Internal Server Error'\n  });\n});"
+  },
+  {
+    "id": "express-api-key",
+    "slug": "express-api-key",
+    "title": "Express API Key Validation",
+    "category": "Express and API",
+    "difficulty": "easy",
+    "problem": "Write middleware to validate an API key from headers.",
+    "solution": "app.use((req, res, next) => {\n  const apiKey = req.headers['x-api-key'];\n  if (apiKey !== 'valid-key') {\n    return res.status(401).json({ error: 'Invalid API key' });\n  }\n  next();\n});"
+  },
+  {
+    "id": "express-required-fields",
+    "slug": "express-required-fields",
+    "title": "Express Required Fields Middleware",
+    "category": "Express and API",
+    "difficulty": "easy",
+    "problem": "Write middleware to check whether required fields exist in the request body.",
+    "solution": "function validateFields(fields) {\n  return (req, res, next) => {\n    for (const field of fields) {\n      if (!(field in req.body)) {\n        return res.status(400).json({ error: `Missing required field: ${field}` });\n      }\n    }\n    next();\n  };\n}\n\n// Usage: app.post('/users', validateFields(['name', 'email']), handler);"
+  },
+  {
+    "id": "express-rate-limit",
+    "slug": "express-rate-limit",
+    "title": "Express Rate Limiting Middleware",
+    "category": "Express and API",
+    "difficulty": "medium",
+    "problem": "Write middleware to rate-limit requests in memory.",
+    "solution": "function rateLimit(maxRequests, windowMs) {\n  const requests = {};\n  return (req, res, next) => {\n    const ip = req.ip;\n    const now = Date.now();\n    if (!requests[ip]) requests[ip] = [];\n    requests[ip] = requests[ip].filter(t => now - t < windowMs);\n    if (requests[ip].length >= maxRequests) {\n      return res.status(429).json({ error: 'Too many requests' });\n    }\n    requests[ip].push(now);\n    next();\n  };\n}"
+  },
+  {
+    "id": "express-pagination",
+    "slug": "express-pagination",
+    "title": "Express Pagination Route",
+    "category": "Express and API",
+    "difficulty": "easy",
+    "problem": "Write a route that supports pagination using page and limit.",
+    "solution": "app.get('/items', (req, res) => {\n  const page = parseInt(req.query.page) || 1;\n  const limit = parseInt(req.query.limit) || 10;\n  const skip = (page - 1) * limit;\n  // Query database with skip and limit\n  res.json({ page, limit, skip, items: [] });\n});"
+  },
+  {
+    "id": "express-filtering",
+    "slug": "express-filtering",
+    "title": "Express Filtering by Query Params",
+    "category": "Express and API",
+    "difficulty": "easy",
+    "problem": "Write a route that supports filtering by query params like status and priority.",
+    "solution": "app.get('/tasks', (req, res) => {\n  const { status, priority } = req.query;\n  let tasks = allTasks;\n  if (status) tasks = tasks.filter(t => t.status === status);\n  if (priority) tasks = tasks.filter(t => t.priority === priority);\n  res.json(tasks);\n});"
+  },
+  {
+    "id": "express-sorting",
+    "slug": "express-sorting",
+    "title": "Express Sorting Route",
+    "category": "Express and API",
+    "difficulty": "easy",
+    "problem": "Write a route that supports sorting by createdAt ascending or descending.",
+    "solution": "app.get('/posts', (req, res) => {\n  const { sortBy = 'createdAt', order = 'asc' } = req.query;\n  const posts = allPosts.sort((a, b) => {\n    const aVal = a[sortBy];\n    const bVal = b[sortBy];\n    if (order === 'asc') return aVal > bVal ? 1 : -1;\n    return aVal < bVal ? 1 : -1;\n  });\n  res.json(posts);\n});"
+  },
+  {
+    "id": "express-file-upload",
+    "slug": "express-file-upload",
+    "title": "Express File Upload Route",
+    "category": "Express and API",
+    "difficulty": "medium",
+    "problem": "Write an Express route to upload a file and save metadata.",
+    "solution": "const multer = require('multer');\nconst upload = multer({ dest: 'uploads/' });\n\napp.post('/upload', upload.single('file'), (req, res) => {\n  if (!req.file) return res.status(400).json({ error: 'No file uploaded' });\n  res.json({\n    filename: req.file.filename,\n    originalName: req.file.originalname,\n    size: req.file.size,\n    mimetype: req.file.mimetype\n  });\n});"
+  },
+  {
+    "id": "express-json-response",
+    "slug": "express-json-response",
+    "title": "Express Consistent JSON Response",
+    "category": "Express and API",
+    "difficulty": "easy",
+    "problem": "Write an endpoint that returns a consistent JSON response format for success and error cases.",
+    "solution": "function sendSuccess(res, data, statusCode = 200) {\n  res.status(statusCode).json({ success: true, data });\n}\n\nfunction sendError(res, error, statusCode = 400) {\n  res.status(statusCode).json({ success: false, error });\n}\n\n// Usage:\napp.get('/resource/:id', (req, res) => {\n  try {\n    const resource = getResource(req.params.id);\n    sendSuccess(res, resource);\n  } catch (err) {\n    sendError(res, err.message);\n  }\n});"
+  },
+  {
+    "id": "crud-operations",
+    "slug": "crud-operations",
+    "title": "CRUD Operations on Tasks",
+    "category": "Backend Practical",
+    "difficulty": "easy",
+    "problem": "Write code for CRUD operations on a tasks collection.",
+    "solution": "const tasks = [];\nlet id = 1;\n\n// Create\nfunction createTask(title, description) {\n  const task = { id: id++, title, description, createdAt: new Date() };\n  tasks.push(task);\n  return task;\n}\n\n// Read\nfunction getTask(taskId) {\n  return tasks.find(t => t.id === taskId);\n}\n\nfunction getAllTasks() {\n  return tasks;\n}\n\n// Update\nfunction updateTask(taskId, updates) {\n  const task = getTask(taskId);\n  if (!task) return null;\n  Object.assign(task, updates, { updatedAt: new Date() });\n  return task;\n}\n\n// Delete\nfunction deleteTask(taskId) {\n  const index = tasks.findIndex(t => t.id === taskId);\n  if (index === -1) return false;\n  tasks.splice(index, 1);\n  return true;\n}"
+  },
+  {
+    "id": "soft-delete",
+    "slug": "soft-delete",
+    "title": "Soft Delete Implementation",
+    "category": "Backend Practical",
+    "difficulty": "easy",
+    "problem": "Write code for soft delete instead of hard delete.",
+    "solution": "function softDeleteTask(taskId) {\n  const task = getTask(taskId);\n  if (!task) return false;\n  task.deletedAt = new Date();\n  task.isDeleted = true;\n  return true;\n}\n\nfunction getAllActiveTasks() {\n  return tasks.filter(t => !t.isDeleted);\n}\n\nfunction restoreTask(taskId) {\n  const task = getTask(taskId);\n  if (!task || !task.isDeleted) return false;\n  task.deletedAt = null;\n  task.isDeleted = false;\n  return true;\n}"
+  },
+  {
+    "id": "idempotent-post",
+    "slug": "idempotent-post",
+    "title": "Idempotent POST Endpoint",
+    "category": "Backend Practical",
+    "difficulty": "medium",
+    "problem": "Write code for an idempotent POST /orders endpoint using an idempotency key.",
+    "solution": "const idempotencyMap = {};\n\napp.post('/orders', (req, res) => {\n  const { idempotencyKey, items } = req.body;\n  if (!idempotencyKey) {\n    return res.status(400).json({ error: 'Idempotency key required' });\n  }\n  \n  if (idempotencyMap[idempotencyKey]) {\n    return res.json(idempotencyMap[idempotencyKey]);\n  }\n  \n  const order = { id: Date.now(), items, createdAt: new Date() };\n  idempotencyMap[idempotencyKey] = order;\n  res.status(201).json(order);\n});"
+  },
+  {
+    "id": "redis-job-queue",
+    "slug": "redis-job-queue",
+    "title": "Redis Job Queue",
+    "category": "Backend Practical",
+    "difficulty": "hard",
+    "problem": "Write code for a background job producer and worker using Redis.",
+    "solution": "const redis = require('redis');\nconst client = redis.createClient();\n\n// Producer\nasync function enqueueJob(jobType, data) {\n  await client.lpush(`queue:${jobType}`, JSON.stringify(data));\n}\n\n// Worker\nasync function processJobs(jobType, handler) {\n  while (true) {\n    const job = await client.rpop(`queue:${jobType}`);\n    if (!job) {\n      await new Promise(resolve => setTimeout(resolve, 1000));\n      continue;\n    }\n    try {\n      await handler(JSON.parse(job));\n    } catch (error) {\n      console.error('Job failed:', error);\n      await client.lpush(`queue:${jobType}:failed`, job);\n    }\n  }\n}"
+  },
+  {
+    "id": "email-job-status",
+    "slug": "email-job-status",
+    "title": "Email Job Queue and Status",
+    "category": "Backend Practical",
+    "difficulty": "hard",
+    "problem": "Write code to enqueue an email job and update job status.",
+    "solution": "async function enqueueEmailJob(email, subject, body) {\n  const jobId = Date.now().toString();\n  const job = { id: jobId, email, subject, body, status: 'pending' };\n  \n  await client.lpush('queue:emails', JSON.stringify(job));\n  await client.set(`job:${jobId}`, JSON.stringify(job), { EX: 86400 });\n  return jobId;\n}\n\nasync function updateJobStatus(jobId, status) {\n  const job = await client.get(`job:${jobId}`);\n  if (!job) return false;\n  const parsed = JSON.parse(job);\n  parsed.status = status;\n  parsed.updatedAt = new Date();\n  await client.set(`job:${jobId}`, JSON.stringify(parsed), { EX: 86400 });\n  return true;\n}\n\nasync function getJobStatus(jobId) {\n  const job = await client.get(`job:${jobId}`);\n  return job ? JSON.parse(job) : null;\n}"
+  },
+  {
+    "id": "job-endpoints",
+    "slug": "job-endpoints",
+    "title": "Job Status Endpoints",
+    "category": "Backend Practical",
+    "difficulty": "medium",
+    "problem": "Write code to expose POST /jobs and GET /jobs/:id/status.",
+    "solution": "app.post('/jobs', async (req, res) => {\n  const { email, subject, body } = req.body;\n  const jobId = await enqueueEmailJob(email, subject, body);\n  res.status(202).json({ jobId, status: 'pending' });\n});\n\napp.get('/jobs/:id/status', async (req, res) => {\n  const jobStatus = await getJobStatus(req.params.id);\n  if (!jobStatus) {\n    return res.status(404).json({ error: 'Job not found' });\n  }\n  res.json({ id: req.params.id, status: jobStatus.status });\n});"
+  },
+  {
+    "id": "redis-caching",
+    "slug": "redis-caching",
+    "title": "Redis Caching with Invalidation",
+    "category": "Backend Practical",
+    "difficulty": "medium",
+    "problem": "Write code to cache a DB response in Redis and invalidate it on update.",
+    "solution": "async function getUser(userId) {\n  const cached = await client.get(`user:${userId}`);\n  if (cached) return JSON.parse(cached);\n  \n  const user = await db.users.findById(userId);\n  await client.set(`user:${userId}`, JSON.stringify(user), { EX: 3600 });\n  return user;\n}\n\nasync function updateUser(userId, updates) {\n  const updated = await db.users.update(userId, updates);\n  await client.del(`user:${userId}`);\n  return updated;\n}"
+  },
+  {
+    "id": "redis-counter",
+    "slug": "redis-counter",
+    "title": "Per-User Request Counter in Redis",
+    "category": "Backend Practical",
+    "difficulty": "easy",
+    "problem": "Write code for a per-user request counter stored in Redis.",
+    "solution": "async function incrementRequestCount(userId) {\n  const key = `requests:${userId}`;\n  const count = await client.incr(key);\n  if (count === 1) {\n    await client.expire(key, 3600); // 1 hour window\n  }\n  return count;\n}\n\nasync function getRequestCount(userId) {\n  const count = await client.get(`requests:${userId}`);\n  return parseInt(count) || 0;\n}"
+  },
+  {
+    "id": "jwt-login",
+    "slug": "jwt-login",
+    "title": "JWT Login Implementation",
+    "category": "Backend Practical",
+    "difficulty": "medium",
+    "problem": "Write code to implement login and issue a JWT.",
+    "solution": "const jwt = require('jsonwebtoken');\nconst SECRET = 'your-secret-key';\n\napp.post('/login', (req, res) => {\n  const { username, password } = req.body;\n  // Verify credentials from DB\n  const user = authenticateUser(username, password);\n  if (!user) return res.status(401).json({ error: 'Invalid credentials' });\n  \n  const token = jwt.sign({ id: user.id, username: user.username }, SECRET, { expiresIn: '1h' });\n  res.json({ token });\n});"
+  },
+  {
+    "id": "jwt-protection",
+    "slug": "jwt-protection",
+    "title": "JWT Route Protection",
+    "category": "Backend Practical",
+    "difficulty": "medium",
+    "problem": "Write code to protect a route using JWT verification.",
+    "solution": "function verifyJWT(req, res, next) {\n  const token = req.headers['authorization']?.split(' ')[1];\n  if (!token) return res.status(401).json({ error: 'No token provided' });\n  \n  jwt.verify(token, SECRET, (err, decoded) => {\n    if (err) return res.status(403).json({ error: 'Invalid token' });\n    req.user = decoded;\n    next();\n  });\n}\n\napp.get('/protected', verifyJWT, (req, res) => {\n  res.json({ message: 'Protected resource', user: req.user });\n});"
+  },
+  {
+    "id": "password-hash",
+    "slug": "password-hash",
+    "title": "Password Hashing and Verification",
+    "category": "Backend Practical",
+    "difficulty": "medium",
+    "problem": "Write code to hash a password and verify it during login.",
+    "solution": "const bcrypt = require('bcrypt');\n\nasync function hashPassword(password) {\n  return bcrypt.hash(password, 10);\n}\n\nasync function verifyPassword(password, hash) {\n  return bcrypt.compare(password, hash);\n}\n\nasync function registerUser(username, password) {\n  const hash = await hashPassword(password);\n  return db.users.create({ username, passwordHash: hash });\n}\n\nasync function loginUser(username, password) {\n  const user = await db.users.findByUsername(username);\n  if (!user) return null;\n  const valid = await verifyPassword(password, user.passwordHash);\n  return valid ? user : null;\n}"
+  },
+  {
+    "id": "refresh-token",
+    "slug": "refresh-token",
+    "title": "Refresh Token Implementation",
+    "category": "Backend Practical",
+    "difficulty": "medium",
+    "problem": "Write code to refresh an access token using a refresh token.",
+    "solution": "const ACCESS_TOKEN_SECRET = 'access-secret';\nconst REFRESH_TOKEN_SECRET = 'refresh-secret';\n\napp.post('/token/refresh', (req, res) => {\n  const { refreshToken } = req.body;\n  try {\n    const decoded = jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);\n    const newAccessToken = jwt.sign({ id: decoded.id }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });\n    res.json({ accessToken: newAccessToken });\n  } catch (err) {\n    res.status(403).json({ error: 'Invalid refresh token' });\n  }\n});"
+  },
+  {
+    "id": "redis-sessions",
+    "slug": "redis-sessions",
+    "title": "Redis Session Storage",
+    "category": "Backend Practical",
+    "difficulty": "medium",
+    "problem": "Write code to store sessions in Redis.",
+    "solution": "async function createSession(userId, data = {}) {\n  const sessionId = crypto.randomBytes(16).toString('hex');\n  const session = { userId, data, createdAt: new Date() };\n  await client.set(`session:${sessionId}`, JSON.stringify(session), { EX: 86400 });\n  return sessionId;\n}\n\nasync function getSession(sessionId) {\n  const session = await client.get(`session:${sessionId}`);\n  return session ? JSON.parse(session) : null;\n}\n\nasync function destroySession(sessionId) {\n  await client.del(`session:${sessionId}`);\n}"
+  },
+  {
+    "id": "correlation-id",
+    "slug": "correlation-id",
+    "title": "Request Correlation IDs",
+    "category": "Backend Practical",
+    "difficulty": "medium",
+    "problem": "Write code to implement request correlation IDs across middleware and logs.",
+    "solution": "const { v4: uuidv4 } = require('uuid');\n\napp.use((req, res, next) => {\n  const correlationId = req.headers['x-correlation-id'] || uuidv4();\n  req.correlationId = correlationId;\n  res.setHeader('x-correlation-id', correlationId);\n  console.log(`[${correlationId}] ${req.method} ${req.url}`);\n  next();\n});\n\napp.get('/api/resource', (req, res) => {\n  console.log(`[${req.correlationId}] Processing resource request`);\n  res.json({ message: 'success' });\n});"
+  },
+  {
+    "id": "graceful-shutdown",
+    "slug": "graceful-shutdown",
+    "title": "Graceful Server Shutdown",
+    "category": "Backend Practical",
+    "difficulty": "medium",
+    "problem": "Write code to gracefully shut down an Express server on SIGTERM.",
+    "solution": "const server = app.listen(3000);\n\nprocess.on('SIGTERM', () => {\n  console.log('SIGTERM received, shutting down gracefully');\n  server.close(() => {\n    console.log('Server closed');\n    // Clean up resources\n    db.close();\n    redis.quit();\n    process.exit(0);\n  });\n  \n  // Force shutdown after 30s\n  setTimeout(() => {\n    console.error('Forced shutdown');\n    process.exit(1);\n  }, 30000);\n});"
+  },
+  {
+    "id": "sql-latest-users",
+    "slug": "sql-latest-users",
+    "title": "SQL: Fetch Latest 10 Users",
+    "category": "SQL",
+    "difficulty": "easy",
+    "problem": "Write a SQL query to fetch the latest 10 users.",
+    "solution": "SELECT * FROM users ORDER BY createdAt DESC LIMIT 10;"
+  },
+  {
+    "id": "sql-users-with-orders",
+    "slug": "sql-users-with-orders",
+    "title": "SQL: Users with More Than 3 Orders",
+    "category": "SQL",
+    "difficulty": "easy",
+    "problem": "Write a SQL query to fetch users with more than 3 orders.",
+    "solution": "SELECT users.* FROM users\nJOIN orders ON users.id = orders.userId\nGROUP BY users.id\nHAVING COUNT(orders.id) > 3;"
+  },
+  {
+    "id": "sql-second-highest-salary",
+    "slug": "sql-second-highest-salary",
+    "title": "SQL: Second Highest Salary",
+    "category": "SQL",
+    "difficulty": "easy",
+    "problem": "Write a SQL query to return the second highest salary.",
+    "solution": "SELECT MAX(salary) FROM employees WHERE salary < (SELECT MAX(salary) FROM employees);\n\n-- Or using DENSE_RANK:\nSELECT salary FROM employees ORDER BY salary DESC LIMIT 1 OFFSET 1;"
+  },
+  {
+    "id": "sql-duplicate-emails",
+    "slug": "sql-duplicate-emails",
+    "title": "SQL: Find Duplicate Emails",
+    "category": "SQL",
+    "difficulty": "easy",
+    "problem": "Write a SQL query to find duplicate email addresses in a table.",
+    "solution": "SELECT email FROM users GROUP BY email HAVING COUNT(*) > 1;"
+  },
+  {
+    "id": "sql-pagination",
+    "slug": "sql-pagination",
+    "title": "SQL: Pagination with LIMIT and OFFSET",
+    "category": "SQL",
+    "difficulty": "easy",
+    "problem": "Write a SQL query to paginate results using LIMIT and OFFSET.",
+    "solution": "-- Page 2 with 10 items per page\nSELECT * FROM users ORDER BY id LIMIT 10 OFFSET 10;"
+  },
+  {
+    "id": "sql-total-orders-per-user",
+    "slug": "sql-total-orders-per-user",
+    "title": "SQL: Total Orders Per User",
+    "category": "SQL",
+    "difficulty": "easy",
+    "problem": "Write a SQL query to return total orders per user.",
+    "solution": "SELECT userId, COUNT(*) as totalOrders FROM orders GROUP BY userId;"
+  },
+  {
+    "id": "sql-left-join-no-orders",
+    "slug": "sql-left-join-no-orders",
+    "title": "SQL: Users with No Orders",
+    "category": "SQL",
+    "difficulty": "medium",
+    "problem": "Write a SQL query to join users and orders and return users with no orders.",
+    "solution": "SELECT users.* FROM users LEFT JOIN orders ON users.id = orders.userId WHERE orders.id IS NULL;"
+  },
+  {
+    "id": "sql-update-based-on-join",
+    "slug": "sql-update-based-on-join",
+    "title": "SQL: Update Based on Another Table",
+    "category": "SQL",
+    "difficulty": "medium",
+    "problem": "Write a SQL query to update one table based on values in another.",
+    "solution": "UPDATE users SET isActive = 0 WHERE id IN (SELECT userId FROM inactiveAccounts);"
+  },
+  {
+    "id": "sql-soft-delete",
+    "slug": "sql-soft-delete",
+    "title": "SQL: Soft Delete Inactive Users",
+    "category": "SQL",
+    "difficulty": "easy",
+    "problem": "Write a SQL query to soft delete inactive users.",
+    "solution": "UPDATE users SET deletedAt = NOW() WHERE lastLoginAt < DATE_SUB(NOW(), INTERVAL 90 DAY) AND deletedAt IS NULL;"
+  },
+  {
+    "id": "sql-monthly-counts",
+    "slug": "sql-monthly-counts",
+    "title": "SQL: Monthly Counts Grouped by Month",
+    "category": "SQL",
+    "difficulty": "medium",
+    "problem": "Write a SQL query to return monthly counts grouped by month.",
+    "solution": "SELECT DATE_TRUNC('month', createdAt) as month, COUNT(*) as count FROM orders GROUP BY DATE_TRUNC('month', createdAt) ORDER BY month;"
+  },
+  {
+    "id": "mongo-active-users",
+    "slug": "mongo-active-users",
+    "title": "MongoDB: Fetch Active Users",
+    "category": "MongoDB",
+    "difficulty": "easy",
+    "problem": "Write a MongoDB query to fetch all active users.",
+    "solution": "db.users.find({ isActive: true });"
+  },
+  {
+    "id": "mongo-last-7-days",
+    "slug": "mongo-last-7-days",
+    "title": "MongoDB: Documents from Last 7 Days",
+    "category": "MongoDB",
+    "difficulty": "easy",
+    "problem": "Write a MongoDB query to fetch documents created in the last 7 days.",
+    "solution": "db.documents.find({ createdAt: { $gte: new Date(Date.now() - 7*24*60*60*1000) } });"
+  },
+  {
+    "id": "mongo-paginate-sort",
+    "slug": "mongo-paginate-sort",
+    "title": "MongoDB: Pagination and Sorting",
+    "category": "MongoDB",
+    "difficulty": "easy",
+    "problem": "Write a MongoDB query to paginate and sort results.",
+    "solution": "db.users.find().sort({ createdAt: -1 }).skip(20).limit(10);"
+  },
+  {
+    "id": "mongo-group-count",
+    "slug": "mongo-group-count",
+    "title": "MongoDB: Aggregation Pipeline Count",
+    "category": "MongoDB",
+    "difficulty": "medium",
+    "problem": "Write a MongoDB aggregation pipeline to group orders by user and count them.",
+    "solution": "db.orders.aggregate([\n  { $group: { _id: '$userId', totalOrders: { $sum: 1 } } },\n  { $sort: { totalOrders: -1 } }\n]);"
+  },
+  {
+    "id": "mongo-monthly-signups",
+    "slug": "mongo-monthly-signups",
+    "title": "MongoDB: Monthly Signups",
+    "category": "MongoDB",
+    "difficulty": "medium",
+    "problem": "Write a MongoDB aggregation pipeline to return monthly signups.",
+    "solution": "db.users.aggregate([\n  { $group: { _id: { $dateToString: { format: '%Y-%m', date: '$createdAt' } }, count: { $sum: 1 } } },\n  { $sort: { _id: 1 } }\n]);"
+  },
+  {
+    "id": "mongo-create-index",
+    "slug": "mongo-create-index",
+    "title": "MongoDB: Create Index",
+    "category": "MongoDB",
+    "difficulty": "easy",
+    "problem": "Write code to create an index for a frequently queried field.",
+    "solution": "db.users.createIndex({ email: 1 });\ndb.orders.createIndex({ userId: 1, createdAt: -1 });"
+  },
+  {
+    "id": "mongo-push-array",
+    "slug": "mongo-push-array",
+    "title": "MongoDB: Push to Array",
+    "category": "MongoDB",
+    "difficulty": "easy",
+    "problem": "Write a MongoDB update query to push an item into an array.",
+    "solution": "db.users.updateOne({ _id: userId }, { $push: { tags: 'newTag' } });"
+  },
+  {
+    "id": "mongo-update-nested",
+    "slug": "mongo-update-nested",
+    "title": "MongoDB: Update Nested Fields",
+    "category": "MongoDB",
+    "difficulty": "easy",
+    "problem": "Write a MongoDB update query to update nested fields.",
+    "solution": "db.users.updateOne({ _id: userId }, { $set: { 'profile.age': 25, 'profile.city': 'NYC' } });"
+  },
+  {
+    "id": "mongo-array-contains",
+    "slug": "mongo-array-contains",
+    "title": "MongoDB: Array Contains Value",
+    "category": "MongoDB",
+    "difficulty": "easy",
+    "problem": "Write a MongoDB query to find documents where an array contains a value.",
+    "solution": "db.users.find({ tags: 'javascript' });\ndb.users.find({ tags: { $in: ['javascript', 'python'] } });"
+  },
+  {
+    "id": "mongo-soft-delete",
+    "slug": "mongo-soft-delete",
+    "title": "MongoDB: Soft Delete",
+    "category": "MongoDB",
+    "difficulty": "easy",
+    "problem": "Write a MongoDB query to soft delete documents.",
+    "solution": "db.users.updateOne({ _id: userId }, { $set: { deletedAt: new Date(), isDeleted: true } });\ndb.users.find({ isDeleted: { $ne: true } }); // Fetch active"
+  },
+  {
+    "id": "dynamodb-put-item",
+    "slug": "dynamodb-put-item",
+    "title": "DynamoDB: Put Item",
+    "category": "DynamoDB and Redis",
+    "difficulty": "easy",
+    "problem": "Write code to put an item into DynamoDB.",
+    "solution": "const AWS = require('aws-sdk');\nconst dynamodb = new AWS.DynamoDB.DocumentClient();\n\nawait dynamodb.put({\n  TableName: 'Users',\n  Item: { id: 'user1', name: 'John', email: 'john@example.com' }\n}).promise();"
+  },
+  {
+    "id": "dynamodb-get-item",
+    "slug": "dynamodb-get-item",
+    "title": "DynamoDB: Get Item by Partition Key",
+    "category": "DynamoDB and Redis",
+    "difficulty": "easy",
+    "problem": "Write code to get an item by partition key.",
+    "solution": "const result = await dynamodb.get({\n  TableName: 'Users',\n  Key: { id: 'user1' }\n}).promise();\nreturn result.Item;"
+  },
+  {
+    "id": "dynamodb-query",
+    "slug": "dynamodb-query",
+    "title": "DynamoDB: Query with Sort Key",
+    "category": "DynamoDB and Redis",
+    "difficulty": "easy",
+    "problem": "Write code to query DynamoDB using partition key and sort key.",
+    "solution": "const result = await dynamodb.query({\n  TableName: 'Orders',\n  KeyConditionExpression: 'userId = :userId AND createdAt > :date',\n  ExpressionAttributeValues: {\n    ':userId': 'user1',\n    ':date': Date.now() - 30*24*60*60*1000\n  }\n}).promise();"
+  },
+  {
+    "id": "dynamodb-gsi",
+    "slug": "dynamodb-gsi",
+    "title": "DynamoDB: Query GSI",
+    "category": "DynamoDB and Redis",
+    "difficulty": "medium",
+    "problem": "Write code to query a GSI in DynamoDB.",
+    "solution": "const result = await dynamodb.query({\n  TableName: 'Users',\n  IndexName: 'emailIndex',\n  KeyConditionExpression: 'email = :email',\n  ExpressionAttributeValues: { ':email': 'john@example.com' }\n}).promise();"
+  },
+  {
+    "id": "dynamodb-update",
+    "slug": "dynamodb-update",
+    "title": "DynamoDB: Update Attribute",
+    "category": "DynamoDB and Redis",
+    "difficulty": "easy",
+    "problem": "Write code to update one attribute in a DynamoDB item.",
+    "solution": "await dynamodb.update({\n  TableName: 'Users',\n  Key: { id: 'user1' },\n  UpdateExpression: 'SET #n = :name, updatedAt = :now',\n  ExpressionAttributeNames: { '#n': 'name' },\n  ExpressionAttributeValues: { ':name': 'Jane', ':now': new Date() }\n}).promise();"
+  },
+  {
+    "id": "dynamodb-ttl",
+    "slug": "dynamodb-ttl",
+    "title": "DynamoDB: Set TTL",
+    "category": "DynamoDB and Redis",
+    "difficulty": "easy",
+    "problem": "Write code to set TTL for a DynamoDB item.",
+    "solution": "await dynamodb.put({\n  TableName: 'Sessions',\n  Item: {\n    sessionId: 'sess1',\n    data: { userId: 'user1' },\n    expiresAt: Math.floor(Date.now() / 1000) + 3600 // 1 hour from now\n  }\n}).promise();"
+  },
+  {
+    "id": "redis-increment",
+    "slug": "redis-increment",
+    "title": "Redis: Increment Counter Safely",
+    "category": "DynamoDB and Redis",
+    "difficulty": "easy",
+    "problem": "Write code to increment a Redis counter safely.",
+    "solution": "async function incrementCounter(key) {\n  return await client.incr(key);\n}\n\nasync function getCounter(key) {\n  const count = await client.get(key);\n  return parseInt(count) || 0;\n}"
+  },
+  {
+    "id": "redis-rate-limiting",
+    "slug": "redis-rate-limiting",
+    "title": "Redis: Sliding Window Rate Limiter",
+    "category": "DynamoDB and Redis",
+    "difficulty": "hard",
+    "problem": "Write code to implement a sliding-window rate limiter in Redis.",
+    "solution": "async function isBelowRateLimit(key, limit, windowMs) {\n  const now = Date.now();\n  const windowStart = now - windowMs;\n  \n  // Remove old requests\n  await client.zremrangebyscore(key, 0, windowStart);\n  \n  // Count remaining requests\n  const count = await client.zcard(key);\n  \n  if (count < limit) {\n    await client.zadd(key, now, `${now}-${Math.random()}`);\n    await client.expire(key, Math.ceil(windowMs / 1000));\n    return true;\n  }\n  return false;\n}"
+  },
+  {
+    "id": "redis-pubsub",
+    "slug": "redis-pubsub",
+    "title": "Redis: Pub/Sub",
+    "category": "DynamoDB and Redis",
+    "difficulty": "medium",
+    "problem": "Write code to publish and subscribe using Redis pub/sub.",
+    "solution": "const subscriber = redis.createClient();\nconst publisher = redis.createClient();\n\nawait subscriber.subscribe('notifications', (message) => {\n  console.log('Received:', message);\n});\n\nawait publisher.publish('notifications', 'Hello World');"
+  },
+  {
+    "id": "redis-distributed-lock",
+    "slug": "redis-distributed-lock",
+    "title": "Redis: Distributed Locking",
+    "category": "DynamoDB and Redis",
+    "difficulty": "hard",
+    "problem": "Write code to implement distributed locking with Redis.",
+    "solution": "async function acquireLock(key, ttl = 10000) {\n  const lockId = crypto.randomBytes(16).toString('hex');\n  const acquired = await client.set(key, lockId, 'NX', 'PX', ttl);\n  return acquired ? lockId : null;\n}\n\nasync function releaseLock(key, lockId) {\n  const current = await client.get(key);\n  if (current === lockId) {\n    await client.del(key);\n    return true;\n  }\n  return false;\n}"
+  },
+  {
+    "id": "url-shortener",
+    "slug": "url-shortener",
+    "title": "Mini: URL Shortener Service",
+    "category": "Mini Design Tasks",
+    "difficulty": "medium",
+    "problem": "Write a small URL shortener service.",
+    "solution": "const urls = new Map();\nlet idCounter = 1000;\n\nfunction generateShortCode() {\n  return idCounter++.toString(36);\n}\n\napp.post('/shorten', (req, res) => {\n  const { url } = req.body;\n  const code = generateShortCode();\n  urls.set(code, url);\n  res.json({ shortUrl: `http://short.url/${code}` });\n});\n\napp.get('/:code', (req, res) => {\n  const url = urls.get(req.params.code);\n  if (!url) return res.status(404).json({ error: 'Not found' });\n  res.redirect(url);\n});"
+  },
+  {
+    "id": "note-api",
+    "slug": "note-api",
+    "title": "Mini: Note-Taking API",
+    "category": "Mini Design Tasks",
+    "difficulty": "medium",
+    "problem": "Write a note-taking API with CRUD, tags, and search.",
+    "solution": "const notes = new Map();\nlet id = 1;\n\napp.post('/notes', (req, res) => {\n  const { title, content, tags } = req.body;\n  const note = { id: id++, title, content, tags: tags || [], createdAt: new Date() };\n  notes.set(note.id, note);\n  res.status(201).json(note);\n});\n\napp.get('/notes/search', (req, res) => {\n  const { q, tag } = req.query;\n  let results = Array.from(notes.values());\n  if (q) results = results.filter(n => n.title.includes(q) || n.content.includes(q));\n  if (tag) results = results.filter(n => n.tags.includes(tag));\n  res.json(results);\n});\n\napp.get('/notes/:id', (req, res) => {\n  const note = notes.get(parseInt(req.params.id));\n  res.json(note || { error: 'Not found' });\n});"
+  },
+  {
+    "id": "ticket-management",
+    "slug": "ticket-management",
+    "title": "Mini: Ticket Management API",
+    "category": "Mini Design Tasks",
+    "difficulty": "medium",
+    "problem": "Write a ticket management API with status transitions.",
+    "solution": "const STATUSES = ['open', 'in-progress', 'resolved', 'closed'];\nconst tickets = new Map();\nlet id = 1;\n\napp.post('/tickets', (req, res) => {\n  const { title, description } = req.body;\n  const ticket = { id: id++, title, description, status: 'open', createdAt: new Date() };\n  tickets.set(ticket.id, ticket);\n  res.status(201).json(ticket);\n});\n\napp.patch('/tickets/:id/status', (req, res) => {\n  const { status } = req.body;\n  const ticket = tickets.get(parseInt(req.params.id));\n  if (!ticket) return res.status(404).json({ error: 'Not found' });\n  if (!STATUSES.includes(status)) return res.status(400).json({ error: 'Invalid status' });\n  ticket.status = status;\n  ticket.updatedAt = new Date();\n  res.json(ticket);\n});"
+  },
+  {
+    "id": "nested-comments",
+    "slug": "nested-comments",
+    "title": "Mini: Nested Comments System",
+    "category": "Mini Design Tasks",
+    "difficulty": "hard",
+    "problem": "Write a comment system with nested replies.",
+    "solution": "const comments = new Map();\nlet id = 1;\n\napp.post('/posts/:postId/comments', (req, res) => {\n  const { text, parentId } = req.body;\n  const comment = { id: id++, postId: req.params.postId, text, parentId: parentId || null, replies: [], createdAt: new Date() };\n  comments.set(comment.id, comment);\n  if (parentId) {\n    const parent = comments.get(parentId);\n    if (parent) parent.replies.push(comment.id);\n  }\n  res.status(201).json(comment);\n});\n\napp.get('/posts/:postId/comments', (req, res) => {\n  const postComments = Array.from(comments.values()).filter(c => c.postId === req.params.postId && !c.parentId);\n  res.json(postComments);\n});"
+  },
+  {
+    "id": "webhook-receiver",
+    "slug": "webhook-receiver",
+    "title": "Mini: Webhook Receiver",
+    "category": "Mini Design Tasks",
+    "difficulty": "medium",
+    "problem": "Write a webhook receiver that validates signatures and stores payloads.",
+    "solution": "const crypto = require('crypto');\nconst SECRET = 'webhook-secret';\nconst payloads = [];\n\napp.post('/webhooks', (req, res) => {\n  const signature = req.headers['x-signature'];\n  const body = JSON.stringify(req.body);\n  const expectedSig = crypto.createHmac('sha256', SECRET).update(body).digest('hex');\n  \n  if (signature !== expectedSig) {\n    return res.status(401).json({ error: 'Invalid signature' });\n  }\n  \n  payloads.push({ timestamp: new Date(), payload: req.body });\n  res.json({ success: true });\n});\n\napp.get('/webhooks/payloads', (req, res) => {\n  res.json(payloads);\n});"
+  },
+  {
+    "id": "audit-logging",
+    "slug": "audit-logging",
+    "title": "Mini: Audit Logging Module",
+    "category": "Mini Design Tasks",
+    "difficulty": "medium",
+    "problem": "Write an audit logging module for create, update, and delete actions.",
+    "solution": "const auditLogs = [];\n\nclass AuditLogger {\n  log(action, entityType, entityId, changes = {}) {\n    auditLogs.push({\n      timestamp: new Date(),\n      action,\n      entityType,\n      entityId,\n      changes,\n      userId: currentUser?.id\n    });\n  }\n}\n\nconst logger = new AuditLogger();\n\n// Usage:\napp.post('/resources', (req, res) => {\n  const resource = createResource(req.body);\n  logger.log('CREATE', 'resource', resource.id, req.body);\n  res.json(resource);\n});"
+  },
+  {
+    "id": "notification-service",
+    "slug": "notification-service",
+    "title": "Mini: Notification Service with Retries",
+    "category": "Mini Design Tasks",
+    "difficulty": "hard",
+    "problem": "Write a notification service that retries failed sends.",
+    "solution": "const queue = { pending: [], failed: [], sent: [] };\n\nasync function sendNotification(notification, maxRetries = 3) {\n  for (let i = 0; i < maxRetries; i++) {\n    try {\n      await deliver(notification);\n      queue.sent.push(notification);\n      return true;\n    } catch (error) {\n      if (i === maxRetries - 1) {\n        notification.error = error.message;\n        notification.failedAt = new Date();\n        queue.failed.push(notification);\n        return false;\n      }\n      await new Promise(r => setTimeout(r, 1000 * Math.pow(2, i)));\n    }\n  }\n}"
+  },
+  {
+    "id": "csv-import",
+    "slug": "csv-import",
+    "title": "Mini: CSV Import Endpoint",
+    "category": "Mini Design Tasks",
+    "difficulty": "hard",
+    "problem": "Write a CSV import endpoint that processes data in the background.",
+    "solution": "const multer = require('multer');\nconst csv = require('csv-parser');\nconst fs = require('fs');\nconst upload = multer({ dest: 'uploads/' });\n\napp.post('/import/csv', upload.single('file'), (req, res) => {\n  const jobId = Date.now().toString();\n  res.status(202).json({ jobId, status: 'processing' });\n  \n  // Process in background\n  processCSVInBackground(req.file.path, jobId);\n});\n\nasync function processCSVInBackground(filePath, jobId) {\n  const results = [];\n  fs.createReadStream(filePath)\n    .pipe(csv())\n    .on('data', (data) => results.push(data))\n    .on('end', async () => {\n      await db.records.insertMany(results);\n      jobs[jobId] = { status: 'completed', recordsImported: results.length };\n      fs.unlinkSync(filePath);\n    });\n}"
+  },
+  {
+    "id": "task-scheduler",
+    "slug": "task-scheduler",
+    "title": "Mini: Task Scheduler for Delayed Jobs",
+    "category": "Mini Design Tasks",
+    "difficulty": "hard",
+    "problem": "Write a task scheduler that executes delayed jobs.",
+    "solution": "const schedule = require('node-schedule');\nconst tasks = new Map();\n\nfunction scheduleTask(jobId, executeAt, fn) {\n  const job = schedule.scheduleJob(executeAt, fn);\n  tasks.set(jobId, job);\n  return jobId;\n}\n\napp.post('/schedule', (req, res) => {\n  const { executeAt, action, params } = req.body;\n  const jobId = Date.now().toString();\n  \n  scheduleTask(jobId, new Date(executeAt), () => {\n    performAction(action, params);\n  });\n  \n  res.json({ jobId, status: 'scheduled' });\n});"
+  },
+  {
+    "id": "leaderboard-api",
+    "slug": "leaderboard-api",
+    "title": "Mini: Leaderboard API",
+    "category": "Mini Design Tasks",
+    "difficulty": "medium",
+    "problem": "Write a leaderboard API using Redis sorted sets.",
+    "solution": "async function updateScore(userId, points) {\n  await client.zincrby('leaderboard', points, userId);\n}\n\nasync function getTopScores(limit = 10) {\n  const scores = await client.zrevrange('leaderboard', 0, limit - 1, 'WITHSCORES');\n  const result = [];\n  for (let i = 0; i < scores.length; i += 2) {\n    result.push({ userId: scores[i], score: parseInt(scores[i + 1]) });\n  }\n  return result;\n}\n\nasync function getUserRank(userId) {\n  const rank = await client.zrevrank('leaderboard', userId);\n  const score = await client.zscore('leaderboard', userId);\n  return { userId, rank: rank + 1, score };\n}"
+  }
+]

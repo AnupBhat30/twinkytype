@@ -1,0 +1,1791 @@
+[
+  {
+    "id": "two-sum",
+    "slug": "two-sum",
+    "title": "Two Sum",
+    "difficulty": "easy",
+    "pattern": [
+      "hash-map",
+      "arrays"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [
+      "Use constant-time lookups to avoid nested loops.",
+      "Compute complement = target - num.",
+      "Return once the complement is already in the map."
+    ],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Hash Map – O(n)",
+        "code": "class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        hashmap = {}\n\n        for i in range(len(nums)):\n            complement = target - nums[i]\n\n            if complement in hashmap:\n                return [hashmap[complement], i]\n\n            hashmap[nums[i]] = i\n      \n            \n#Question: https://leetcode.com/problems/two-sum\n#Blog: https://blog.unwiredlearning.com/two-sum",
+        "explanation": "Python solution for Two Sum."
+      },
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "class Solution:\n    def twoSum(self, numbers: List[int], target: int) -> List[int]:\n        # Initialize two pointers: left at the start, right at the end.\n        left, right = 0, len(numbers) - 1\n\n        while left < right:\n            current_sum = numbers[left] + numbers[right]\n\n            # Return the 1-indexed positions if the target sum is found.\n            if current_sum == target:\n                return [left + 1, right + 1]  \n            \n            # Move the left pointer to the right if the sum is less than the target.\n            elif current_sum < target:\n                left += 1\n            \n            # Move the right pointer to the left if the sum is greater than the target.\n            elif current_sum > target:\n                right -= 1\n\n        return []\n    \n\n#Question: https://leetcode.com/problems/two-sum-ii-input-array-is-sorted\n#Blog: https://blog.unwiredlearning.com/two-sum-ii-input-array-is-sorted",
+        "explanation": "Python solution for Two Sum."
+      }
+    ]
+  },
+  {
+    "id": "best-time-to-buy-and-sell-stock",
+    "slug": "best-time-to-buy-and-sell-stock",
+    "title": "Best Time to Buy and Sell Stock",
+    "difficulty": "easy",
+    "pattern": [
+      "arrays",
+      "sliding-window"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [
+      "Track the minimum price seen so far.",
+      "At each day, compute possible profit if sold today.",
+      "Keep the maximum of those profits."
+    ],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def maxProfit(self, prices: List[int]) -> int:\n        # minimum buy price is the first price\n        buy_price = prices[0]\n\n        # the minimum profit is zero\n        profit = 0\n\n        for i in range(1, len(prices)):\n\n            # if the current price is less, update the buy_price\n            if prices[i] < buy_price:\n                buy_price = prices[i]\n            else:\n                # else check if we can get a better profit\n                current_profit = prices[i] - buy_price\n                profit = max(current_profit, profit)\n\n        return profit\n    \n\n#Question: https://leetcode.com/problems/best-time-to-buy-and-sell-stock\n#Blog: https://blog.unwiredlearning.com/best-time-to-buy-and-sell-stock",
+        "explanation": "Python solution for Best Time to Buy and Sell Stock."
+      }
+    ]
+  },
+  {
+    "id": "contains-duplicate",
+    "slug": "contains-duplicate",
+    "title": "Contains Duplicate",
+    "difficulty": "easy",
+    "pattern": [
+      "hash-set",
+      "arrays"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [
+      "A set stores only unique values.",
+      "If a value repeats, you can return immediately.",
+      "Comparing len(nums) and len(set(nums)) also works."
+    ],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def containsDuplicate(self, nums: List[int]) -> bool:\n        # Create an empty set to store unique numbers\n        num_set = set()\n\n        for num in nums:\n            if num in num_set:\n                return True\n            num_set.add(num)\n\n        return False\n\n\n#Question: https://leetcode.com/problems/contains-duplicate\n#Blog: https://blog.unwiredlearning.com/contains-duplicate",
+        "explanation": "Python solution for Contains Duplicate."
+      }
+    ]
+  },
+  {
+    "id": "product-of-array-except-self",
+    "slug": "product-of-array-except-self",
+    "title": "Product of Array Except Self",
+    "difficulty": "medium",
+    "pattern": [
+      "arrays",
+      "prefix-suffix"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "class Solution:\n    def productExceptSelf(self, nums: List[int]) -> List[int]:\n        n = len(nums)\n\n        # Array to store all left multiplication\n        left = [1] * n\n        for i in range(1, n):\n            left[i] = left[i - 1] * nums[i - 1]\n\n        # Array to store all right multiplication\n        right = [1] * n\n        for i in range(n - 2, -1, -1):\n            right[i] = right[i + 1] * nums[i + 1]\n\n        result = [1] * n\n        for i in range(n):\n            result[i] = left[i] * right[i]\n\n        return result \n    \n\n#Question: https://leetcode.com/problems/product-of-array-except-self\n#Blog: https://blog.unwiredlearning.com/product-of-array-except-self",
+        "explanation": "Python solution for Product of Array Except Self."
+      }
+    ]
+  },
+  {
+    "id": "maximum-subarray",
+    "slug": "maximum-subarray",
+    "title": "Maximum Subarray",
+    "difficulty": "medium",
+    "pattern": [
+      "arrays",
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def maxSubArray(self, nums: List[int]) -> int:\n        # the sum of the subarray ending at the current index\n        current_sum = nums[0]\n        \n        # This will store the maximum sum found so far\n        max_sum = nums[0]\n        \n        # Iterate through the array starting from the second element\n        for i in range(1, len(nums)):\n            # Update current_sum to be the maximum of:\n            # 1. The current element itself (which means starting a new subarray)\n            # 2. The current element + current_sum (which means extending the existing subarray)\n            current_sum = max(nums[i], current_sum + nums[i])\n            \n            # Update max_sum to be the maximum of max_sum and current_sum\n            # This ensures max_sum always holds the highest sum encountered\n            max_sum = max(max_sum, current_sum)\n        \n        # Return the maximum sum found\n        return max_sum\n    \n    \n#Question: https://leetcode.com/problems/maximum-subarray\n#Blog: https://blog.unwiredlearning.com/maximum-subarray",
+        "explanation": "Python solution for Maximum Subarray."
+      }
+    ]
+  },
+  {
+    "id": "maximum-product-subarray",
+    "slug": "maximum-product-subarray",
+    "title": "Maximum Product Subarray",
+    "difficulty": "medium",
+    "pattern": [
+      "arrays",
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "class Solution:\n    def maxProduct(self, nums: List[int]) -> int:\n        n = len(nums)\n        left_product, right_product = 1, 1\n        result = nums[0]\n\n        for i in range(n):\n            # if any of left or right product become 0, update it to 1\n            if left_product == 0: \n                left_product = 1\n            if right_product == 0: \n                right_product = 1\n\n            # prefix product\n            left_product *= nums[i]\n\n            # suffix product\n            right_product *= nums[n - 1 - i]\n\n            result = max(ans, max(left_product, right_product))\n\n        return result\n        \n        \n#Question: https://leetcode.com/problems/maximum-product-subarray\n#Blog: https://blog.unwiredlearning.com/maximum-product-subarray",
+        "explanation": "Python solution for Maximum Product Subarray."
+      }
+    ]
+  },
+  {
+    "id": "find-minimum-in-rotated-sorted-array",
+    "slug": "find-minimum-in-rotated-sorted-array",
+    "title": "Find Minimum in Rotated Sorted Array",
+    "difficulty": "medium",
+    "pattern": [
+      "binary-search",
+      "arrays"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "class Solution:\n    def findMin(self, nums: List[int]) -> int:\n        left, right = 0, len(nums) - 1\n\n        while left < right:\n            mid = left + (right - left) // 2\n\n            # If the middle element is greater than the rightmost element, \n            # it indicates that the smallest element is in the right half.\n            # Thus, adjust the left pointer to mid + 1.\n            if nums[mid] > nums[right]:\n                left = mid + 1\n            \n            # If the middle element is greater than the rightmost element, \n            # it indicates that the smallest element is in the right half.\n            # Thus, adjust the left pointer to mid + 1.\n            else:\n                right = mid\n\n        # At the end of the loop, left will be pointing at the smallest element.        \n        return nums[left]\n        \n        \n#Question: https://leetcode.com/problems/find-minimum-in-rotated-sorted-array\n#Blog: https://blog.unwiredlearning.com/find-minimum-in-rotated-sorted-array",
+        "explanation": "Python solution for Find Minimum in Rotated Sorted Array."
+      }
+    ]
+  },
+  {
+    "id": "search-in-rotated-sorted-array",
+    "slug": "search-in-rotated-sorted-array",
+    "title": "Search in Rotated Sorted Array",
+    "difficulty": "medium",
+    "pattern": [
+      "binary-search",
+      "arrays"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "class Solution:\n    def search(self, nums: List[int], target: int) -> int:\n        # Initialize the left and right pointers\n        left, right = 0, len(nums) - 1\n\n        # Iterate as long as left is less than or equal to right\n        while left <= right:\n            # Calculate mid to avoid overflow\n            mid = left + (right - left) // 2\n\n            # Check if the mid element is the target\n            if nums[mid] == target:\n                return mid  # Target found\n\n            # If the left half is sorted\n            if nums[mid] >= nums[left]:\n                # Check if target lies in the left half\n                if nums[left] <= target < nums[mid]:\n                    right = mid - 1  # Narrow down to left half\n                else:\n                    left = mid + 1  # Narrow down to right half\n\n            # If the right half is sorted\n            else:                \n                # Check if target lies in the right half\n                if nums[mid] < target <= nums[right]:\n                    left = mid + 1  # Narrow down to right half\n                else:\n                    right = mid - 1  # Narrow down to left half\n\n        # Target not found\n        return -1\n\n\n#Question: https://leetcode.com/problems/search-in-rotated-sorted-array\n#Blog: https://blog.unwiredlearning.com/search-in-rotated-sorted-array",
+        "explanation": "Python solution for Search in Rotated Sorted Array."
+      }
+    ]
+  },
+  {
+    "id": "3sum",
+    "slug": "3sum",
+    "title": "3Sum",
+    "difficulty": "medium",
+    "pattern": [
+      "two-pointers",
+      "arrays"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "class Solution:\n    def threeSum(self, nums: List[int]) -> List[List[int]]:\n        # Check if the array is null or has less than 3 elements\n        if nums is None or len(nums) < 3:\n            return []\n\n        # Sort the elements\n        nums.sort()\n\n        # Use a set to keep unique triplets\n        result = set()\n\n        # Fix i'th element and find the other two elements\n        for i in range(len(nums) - 2):\n            left, right = i + 1, len(nums) - 1\n\n            while left < right:\n                target = nums[i] + nums[left] + nums[right]\n                \n                if target == 0:\n                    # Add the triplet to the set\n                    result.add((nums[i], nums[left], nums[right]))\n                    left += 1\n                    right -= 1\n                \n                # If target is less than 0, increment the left pointer\n                elif target < 0:\n                    left += 1\n                \n                # If target is greater than 0, decrement the right pointer\n                elif target > 0:\n                    right -= 1\n\n        # Convert set of tuples to list of lists\n        return list(map(list, result))\n    \n\n#Question: https://leetcode.com/problems/3sum\n#Blog: https://blog.unwiredlearning.com/3sum",
+        "explanation": "Python solution for 3Sum."
+      }
+    ]
+  },
+  {
+    "id": "container-with-most-water",
+    "slug": "container-with-most-water",
+    "title": "Container With Most Water",
+    "difficulty": "medium",
+    "pattern": [
+      "two-pointers",
+      "arrays"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "class Solution:\n    def maxArea(self, height: List[int]) -> int: \n        left = 0\n        right = len(height) - 1\n        maxArea = 0\n        \n        # Loop until the left pointer is less than the right pointer\n        while left < right:\n            area = min(height[left], height[right]) * (right - left)\n            maxArea = max(area, maxArea)\n            \n            # Move the pointer pointing to the shorter height towards the middle\n            if height[left] < height[right]:\n                left += 1\n            else:\n                right -= 1\n\n        return maxArea\n    \n\n#Question: https://leetcode.com/problems/container-with-most-water\n#Blog: https://blog.unwiredlearning.com/container-with-most-water",
+        "explanation": "Python solution for Container With Most Water."
+      }
+    ]
+  },
+  {
+    "id": "sum-of-two-integers",
+    "slug": "sum-of-two-integers",
+    "title": "Sum of Two Integers",
+    "difficulty": "medium",
+    "pattern": [
+      "bit-manipulation"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def getSum(self, a: int, b: int) -> int:\n        # 32-bit integer max value\n        MAX = 0x7FFFFFFF\n        \n        # Mask to get 32 bits\n        mask = 0xFFFFFFFF\n\n        while b != 0:\n            # Calculate the carry bits\n            carry = (a & b) & mask\n            \n            # XOR the bits for sum without carry\n            a = (a ^ b) & mask\n            \n            # Shift the carry to add in the next higher bit position\n            b = (carry << 1) & mask\n        \n        # If a is negative, return a's complement in Python's 32-bit format\n        return a if a <= MAX else ~(a ^ mask)\n\n\n#Question: https://leetcode.com/problems/sum-of-two-integers\n#Blog: https://blog.unwiredlearning.com/sum-of-two-integers",
+        "explanation": "Python solution for Sum of Two Integers."
+      }
+    ]
+  },
+  {
+    "id": "number-of-1-bits",
+    "slug": "number-of-1-bits",
+    "title": "Number of 1 Bits",
+    "difficulty": "easy",
+    "pattern": [
+      "bit-manipulation"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def hammingWeight(self, n: int) -> int:\n        count = 0\n\n        # Assuming a 32-bit integer\n        for _ in range(32):  \n            # Check the LSB\n            count = count + (n & 1) \n\n            # Right shift the bits of n\n            n = n >> 1                \n\n        return count\n    \n    \n#Question: https://leetcode.com/problems/number-of-1-bits\n#Blog: https://blog.unwiredlearning.com/number-of-1-bits",
+        "explanation": "Python solution for Number of 1 Bits."
+      }
+    ]
+  },
+  {
+    "id": "counting-bits",
+    "slug": "counting-bits",
+    "title": "Counting Bits",
+    "difficulty": "easy",
+    "pattern": [
+      "bit-manipulation",
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def countBits(self, n: int) -> List[int]:\n        # Initialize a list to store the result\n        result = [0] * (n + 1)\n        \n        # If n is 0, simply return the result list (which is [0])\n        if n == 0:\n            return result\n        \n        # The number of 1's in the binary representation of 1 is 1\n        result[1] = 1\n        \n        # Loop through numbers from 2 to n\n        for i in range(2, n + 1):\n            if i % 2 == 0:\n                result[i] = result[i // 2]\n            else: \n                result[i] = result[i // 2] + 1\n        \n        return result\n    \n\n#Question: https://leetcode.com/problems/counting-bits\n#Blog: https://blog.unwiredlearning.com/counting-bits",
+        "explanation": "Python solution for Counting Bits."
+      }
+    ]
+  },
+  {
+    "id": "missing-number",
+    "slug": "missing-number",
+    "title": "Missing Number",
+    "difficulty": "easy",
+    "pattern": [
+      "bit-manipulation",
+      "arrays"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def missingNumber(self, nums: List[int]) -> int:\n        xor = 0\n        n = len(nums)\n        \n        # XOR all indices and all elements in nums\n        for i in range(n):\n            xor = xor ^ i ^ nums[i]\n        \n        # Finally XOR with n (since the range is from 0 to n)\n        xor = xor ^ n\n        \n        return xor\n    \n\n#Question: https://leetcode.com/problems/missing-number\n#Blog: https://blog.unwiredlearning.com/missing-number",
+        "explanation": "Python solution for Missing Number."
+      }
+    ]
+  },
+  {
+    "id": "reverse-bits",
+    "slug": "reverse-bits",
+    "title": "Reverse Bits",
+    "difficulty": "easy",
+    "pattern": [
+      "bit-manipulation"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "class Solution:\n    def reverseBits(self, n: int) -> int:\n        result = 0\n\n        for _ in range(32):\n            # Extract the last bit of n\n            bit = n & 1\n\n            # Shift result to the left to make space for the extracted bit\n            result = (result << 1) | bit\n\n            # Shift n to the right to process the next bit\n            n = n >> 1\n\n        return result\n    \n\n#Question: https://leetcode.com/problems/reverse-bits\n#Blog: https://blog.unwiredlearning.com/reverse-bits",
+        "explanation": "Python solution for Reverse Bits."
+      }
+    ]
+  },
+  {
+    "id": "climbing-stairs",
+    "slug": "climbing-stairs",
+    "title": "Climbing Stairs",
+    "difficulty": "easy",
+    "pattern": [
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Dynamic Programming",
+        "code": "class Solution:\n    def climbStairs(self, n: int) -> int:\n        # Base case: if n is 1, there's only one way.\n        if n == 1:\n            return n\n        \n        # Initialize a list to store the number of ways to reach each step.\n        dp = [0] * (n + 1)\n        dp[1], dp[2] = 1, 2\n        \n        # Start calculating from the 3rd step up to the nth step.\n        for i in range(3, n + 1):\n            dp[i] = dp[i - 1] + dp[i - 2]\n            \n        # dp[n] contains the total number of ways to climb n stairs.\n        return dp[n]\n    \n\n#Question: https://leetcode.com/problems/climbing-stairs\n#Blog: https://blog.unwiredlearning.com/climbing-stairs",
+        "explanation": "Python solution for Climbing Stairs."
+      }
+    ]
+  },
+  {
+    "id": "coin-change",
+    "slug": "coin-change",
+    "title": "Coin Change",
+    "difficulty": "medium",
+    "pattern": [
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Dynamic Programming",
+        "code": "class Solution:\n    def coinChange(self, coins: List[int], amount: int) -> int:\n        dp = [amount + 1] * (amount + 1)\n        dp[0] = 0\n\n        for i in range(1, amount + 1):\n            for coin in coins:\n                if coin <= i:\n                    dp[i] = min(dp[i], dp[i - coin] + 1)\n\n        # No solution exists, return -1.\n        if dp[amount] == amount + 1:\n            return -1  \n        \n        return dp[amount]\n        \n        \n#Question: https://leetcode.com/problems/coin-change\n#Blog: https://blog.unwiredlearning.com/coin-change",
+        "explanation": "Python solution for Coin Change."
+      }
+    ]
+  },
+  {
+    "id": "longest-increasing-subsequence",
+    "slug": "longest-increasing-subsequence",
+    "title": "Longest Increasing Subsequence",
+    "difficulty": "medium",
+    "pattern": [
+      "dynamic-programming",
+      "binary-search"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Dynamic Programming",
+        "code": "class Solution:\n    def lengthOfLIS(self, nums: List[int]) -> int:\n        if len(nums) == 0:\n            return 0\n\n        dp = [1 for _ in range(len(nums))]\n        max_length = 1\n\n        for i in range(len(nums)):\n            for j in range(i):\n                if nums[i] > nums[j]:\n                    dp[i] = max(dp[i], dp[j] + 1)\n                    max_length = max(max_length, dp[i])\n        \n        return max_length\n        \n        \n#Question: https://leetcode.com/problems/longest-increasing-subsequence\n#Blog: https://blog.unwiredlearning.com/longest-increasing-subsequence",
+        "explanation": "Python solution for Longest Increasing Subsequence."
+      }
+    ]
+  },
+  {
+    "id": "longest-common-subsequence",
+    "slug": "longest-common-subsequence",
+    "title": "Longest Common Subsequence",
+    "difficulty": "medium",
+    "pattern": [
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Dynamic Programming",
+        "code": "class Solution:\n    def longestCommonSubsequence(self, text1: str, text2: str) -> int:\n        m, n = len(text1), len(text2)\n        dp = [[0] * (n + 1) for _ in range(m + 1)]\n\n        for j in range(1, n + 1):\n            for i in range(1, m + 1):\n\n                if text1[i - 1] == text2[j - 1]:\n                    dp[i][j] = dp[i - 1][j - 1] + 1\n                else:\n                    dp[i][j] = max(dp[i][j - 1], dp[i - 1][j])\n\n        # The bottom-right corner is the length of the LCS            \n        return dp[m][n]\n        \n        \n#Question: https://leetcode.com/problems/longest-common-subsequence\n#Blog: https://blog.unwiredlearning.com/longest-common-subsequence",
+        "explanation": "Python solution for Longest Common Subsequence."
+      }
+    ]
+  },
+  {
+    "id": "word-break",
+    "slug": "word-break",
+    "title": "Word Break",
+    "difficulty": "medium",
+    "pattern": [
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def wordBreak(self, s: str, wordDict: List[str]) -> bool:\n        wordSet = set(wordDict)\n        \n        res = [False] * (len(s) + 1)\n        res[0] = True\n        \n        # Iterate through all positions in the string\n        for i in range(len(s) + 1):\n            # Check all words in the wordSet\n            for word in wordSet:\n                if (res[i] and (i + len(word)) <= len(s) and s[i : i + len(word)] in wordSet):\n                    res[i + len(word)] = True\n        \n        return res[-1]\n        \n\n#Question: https://leetcode.com/problems/word-break\n#Blog: https://blog.unwiredlearning.com/word-break",
+        "explanation": "Python solution for Word Break."
+      }
+    ]
+  },
+  {
+    "id": "combination-sum",
+    "slug": "combination-sum",
+    "title": "Combination Sum",
+    "difficulty": "medium",
+    "pattern": [
+      "backtracking"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "DFS",
+        "code": "class Solution:\n    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:\n        all_combinations = []\n\n        def dfs(index, current_combination, current_sum):\n\n            # If the current sum equals the target, we've found a valid combination.\n            if current_sum == target:\n                all_combinations.append(current_combination)\n                return\n\n            # If we've considered all candidates or the current sum exceeds the target, backtrack.\n            if index >= len(candidates) or current_sum > target:\n                return\n            \n            dfs(index, current_combination + [candidates[index]], current_sum + candidates[index])\n            dfs(index + 1, current_combination, current_sum)\n\n        # Start the DFS with an empty combination and a sum of 0.\n        dfs(0, [], 0)\n        return all_combinations\n\n\n#Question: https://leetcode.com/problems/combination-sum\n#Blog: https://blog.unwiredlearning.com/combination-sum",
+        "explanation": "Python solution for Combination Sum."
+      }
+    ]
+  },
+  {
+    "id": "house-robber",
+    "slug": "house-robber",
+    "title": "House Robber",
+    "difficulty": "medium",
+    "pattern": [
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Dynamic Programming",
+        "code": "class Solution:\n    def rob(self, nums: List[int]) -> int:\n        if not nums:\n            return 0\n            \n        if len(nums) == 1:\n            return nums[0]\n\n        dp = [0] * len(nums)\n        dp[0] = nums[0]\n        dp[1] = max(nums[0], nums[1])\n        \n        for i in range(2, len(nums)):\n            dp[i] = max(dp[i-2] + nums[i], dp[i-1])\n        \n        return dp[-1]\n        \n        \n#Question: https://leetcode.com/problems/house-robber\n#Blog: https://blog.unwiredlearning.com/house-robber",
+        "explanation": "Python solution for House Robber."
+      }
+    ]
+  },
+  {
+    "id": "house-robber-ii",
+    "slug": "house-robber-ii",
+    "title": "House Robber II",
+    "difficulty": "medium",
+    "pattern": [
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Dynamic Programming",
+        "code": "class Solution:\n    def rob(self, nums: List[int]) -> int:\n        if not nums:\n            return 0            \n        if len(nums) == 1:\n            return nums[0]\n\n        # Create 2 new lists\n        skip_last_house = nums[:-1]\n        skip_first_house = nums[1:]\n\n        # Get the loot from both possibilities\n        loot_skipping_last = self.rob_helper(skip_last_house)\n        loot_skipping_first = self.rob_helper(skip_first_house)\n\n        # Return the maximum of 2 loots\n        return max(loot_skipping_last, loot_skipping_first)\n\n    def rob_helper(self, nums):\n        if len(nums) == 1:\n            return nums[0]\n\n        dp = [0] * len(nums)\n        dp[0] = nums[0]\n        dp[1] = max(nums[0], nums[1])\n\n        for i in range(2, len(nums)):\n            dp[i] = max(dp[i - 2] + nums[i], dp[i - 1])\n\n        return dp[-1]\n        \n        \n#Question: https://leetcode.com/problems/house-robber-ii\n#Blog: https://blog.unwiredlearning.com/house-robber-ii",
+        "explanation": "Python solution for House Robber II."
+      }
+    ]
+  },
+  {
+    "id": "decode-ways",
+    "slug": "decode-ways",
+    "title": "Decode Ways",
+    "difficulty": "medium",
+    "pattern": [
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Dynamic Programming",
+        "code": "class Solution:\n    def numDecodings(self, s: str) -> int:\n        if not s or s[0] == '0':\n            return 0\n\n        n = len(s)\n        dp = [0] * (n + 1)\n\n        # Base cases\n        dp[0], dp[1] = 1, 1  \n\n        for i in range(2, n + 1):\n            # Single digit decodec\n            if 1 <= int(s[i-1:i]) <= 9:\n                dp[i] += dp[i-1]\n\n            # Two digit decode\n            if 10 <= int(s[i-2:i]) <= 26:\n                dp[i] += dp[i-2]\n\n        return dp[n]\n    \n    \n#Question: https://leetcode.com/problems/decode-ways\n#Blog: https://blog.unwiredlearning.com/decode-ways",
+        "explanation": "Python solution for Decode Ways."
+      }
+    ]
+  },
+  {
+    "id": "unique-paths",
+    "slug": "unique-paths",
+    "title": "Unique Paths",
+    "difficulty": "medium",
+    "pattern": [
+      "dynamic-programming",
+      "grid"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Dynamic Programming",
+        "code": "class Solution:\n    def uniquePaths(self, m: int, n: int) -> int:\n        # Step 1 and 2: Initialize DP array with 1s\n        dp = [[1]*n for _ in range(m)]  \n    \n        # Step 2: Fill in the dp with unique paths to each cell\n        for i in range(1, m):          \n            for j in range(1, n):\n                dp[i][j] = dp[i-1][j] + dp[i][j-1]\n        \n        # Step 3: Return the result from the bottom-right cell\n        return dp[m-1][n-1]\n        \n        \n#Question: https://leetcode.com/problems/unique-paths\n#Blog: https://blog.unwiredlearning.com/unique-paths",
+        "explanation": "Python solution for Unique Paths."
+      }
+    ]
+  },
+  {
+    "id": "jump-game",
+    "slug": "jump-game",
+    "title": "Jump Game",
+    "difficulty": "medium",
+    "pattern": [
+      "greedy",
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def canJump(self, nums: List[int]) -> bool:\n        # stores the farthest index we can reach\n        maxReach = 0\n        \n        # Iterate through each index in the array\n        for i in range(len(nums)):\n            # If the current index is greater than the farthest we can reach,\n            # it means we cannot reach this index, hence return False\n            if i > maxReach:\n                return False\n            \n            # Update maxReach to be the maximum of its current value\n            # and the farthest index we can reach from the current index\n            maxReach = max(maxReach, i + nums[i])\n        \n        # If we have iterated through the array and maxReach is at least the last index,\n        # it means we can reach the end, hence return True\n        result = maxReach >= len(nums) - 1\n        return result\n    \n\n#Question: https://leetcode.com/problems/jump-game\n#Blog: https://blog.unwiredlearning.com/jump-game",
+        "explanation": "Python solution for Jump Game."
+      }
+    ]
+  },
+  {
+    "id": "clone-graph",
+    "slug": "clone-graph",
+    "title": "Clone Graph",
+    "difficulty": "medium",
+    "pattern": [
+      "graph",
+      "dfs",
+      "bfs"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Queue / BFS",
+        "code": "\"\"\"\n# Definition for a Node.\nclass Node:\n    def __init__(self, val = 0, neighbors = None):\n        self.val = val\n        self.neighbors = neighbors if neighbors is not None else []\n\"\"\"\n\nclass Solution:\n    def cloneGraph(self, node: 'Node') -> 'Node':\n        if not node:\n            return None\n    \n        # Mapping from original to cloned node\n        cloned_nodes = {}\n        \n        # Initialize the \"queue\" with the first node\n        queue = [node]\n        \n        # Clone the first node and add it to the cloned nodes map\n        cloned_nodes[node] = Node(node.val)\n        \n        # BFS traversal\n        while queue:\n            # \"Dequeue\" operation using list pop from the front (index 0)\n            current_node = queue.pop(0)\n            \n            for neighbor in current_node.neighbors:\n                if neighbor not in cloned_nodes:\n                    # Clone and store the neighbor if it's not yet cloned\n                    cloned_nodes[neighbor] = Node(neighbor.val)\n                    # Enqueue the neighbor\n                    queue.append(neighbor)\n                \n                # Add the clone of the neighbor to the current node's clone neighbors list\n                cloned_nodes[current_node].neighbors.append(cloned_nodes[neighbor])\n        \n        return cloned_nodes[node]\n\n\n#Question: https://leetcode.com/problems/clone-graph\n#Blog: https://blog.unwiredlearning.com/clone-graph",
+        "explanation": "Python solution for Clone Graph."
+      }
+    ]
+  },
+  {
+    "id": "course-schedule",
+    "slug": "course-schedule",
+    "title": "Course Schedule",
+    "difficulty": "medium",
+    "pattern": [
+      "graph",
+      "topological-sort"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "DFS",
+        "code": "class Solution:\n    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:\n        graph = [[] for _ in range(numCourses)]\n        cycle = [False] * numCourses\n\n        # Build graph with reversed logic\n        for pair in prerequisites:\n            graph[pair[0]].append(pair[1])\n\n        def dfs(course):\n            if cycle[course]:  # Cycle detected or already visited\n                return False\n            if graph[course] is None:  # No prerequisite for this course\n                return True\n\n            cycle[course] = True\n            for prereq in graph[course]:\n                if dfs(prereq) is False:\n                    return False\n            cycle[course] = False  # Reset for other paths\n            graph[course] = []  # Clear prerequisites since it can be completed\n            return True\n\n        for i in range(numCourses):\n            if dfs(i) is False:\n                return False\n        return True\n\n\n#Question: https://leetcode.com/problems/course-schedule\n#Blog: https://blog.unwiredlearning.com/course-schedule",
+        "explanation": "Python solution for Course Schedule."
+      }
+    ]
+  },
+  {
+    "id": "pacific-atlantic-water-flow",
+    "slug": "pacific-atlantic-water-flow",
+    "title": "Pacific Atlantic Water Flow",
+    "difficulty": "medium",
+    "pattern": [
+      "graph",
+      "dfs",
+      "matrix"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "DFS",
+        "code": "class Solution:\n    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:\n        # Edge case: if the input is empty, return an empty list\n        if not heights:\n            return []\n        \n        # Get the dimensions of the matrix\n        m, n = len(heights), len(heights[0])\n        \n        # Initialize matrices to track cells reachable to the Pacific and Atlantic oceans\n        pacificReachable = [[False for _ in range(n)] for _ in range(m)]\n        atlanticReachable = [[False for _ in range(n)] for _ in range(m)]\n        \n        # Define the DFS function that marks reachable cells\n        def dfs(row, col, reachable):\n            # Mark the current cell as reachable for the current ocean\n            reachable[row][col] = True\n            \n            # Define the possible directions to move (up, down, left, right)\n            directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]\n            \n            for dr, dc in directions:\n                # Calculate the new cell's position\n                newRow, newCol = row + dr, col + dc\n                \n                # Check if the new cell is within bounds, unvisited, and its height is >= current cell's height\n                if (0 <= newRow < m and 0 <= newCol < n and not reachable[newRow][newCol] and \n                heights[newRow][newCol] >= heights[row][col]):\n                    # Recursively perform DFS from the new cell\n                    dfs(newRow, newCol, reachable)\n        \n        # Perform DFS from all cells adjacent to the Pacific ocean\n        for i in range(m):\n            dfs(i, 0, pacificReachable)\n            dfs(i, n - 1, atlanticReachable)\n        \n        # Perform DFS from all cells adjacent to the Atlantic ocean\n        for j in range(n):\n            dfs(0, j, pacificReachable)\n            dfs(m - 1, j, atlanticReachable)\n\n        print(pacificReachable)\n        print(atlanticReachable)\n        \n        # Collect and return the cells that can reach both oceans\n        result = []\n        \n        for i in range(m):\n            for j in range(n):\n                if pacificReachable[i][j] and atlanticReachable[i][j]:\n                    result.append([i, j])\n        \n        return result\n    \n\n#Question: https://leetcode.com/problems/pacific-atlantic-water-flow\n#Blog: https://blog.unwiredlearning.com/pacific-atlantic-water-flow",
+        "explanation": "Python solution for Pacific Atlantic Water Flow."
+      }
+    ]
+  },
+  {
+    "id": "number-of-islands",
+    "slug": "number-of-islands",
+    "title": "Number of Islands",
+    "difficulty": "medium",
+    "pattern": [
+      "graph",
+      "dfs",
+      "bfs",
+      "matrix"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "DFS",
+        "code": "class Solution:\n    def numIslands(self, grid: List[List[str]]) -> int:\n        if not grid:\n            return 0\n\n        # Depth First Search (DFS) function to mark visited land\n        def dfs(i, j):\n            # Base case: if the index is out of bounds or the cell is water ('0'), return\n            if (i < 0 or i >= len(grid) or \n                j < 0 or j >= len(grid[0]) or grid[i][j] == '0'):\n                return\n                \n            grid[i][j] = '0'  # Mark as visited\n            dfs(i+1, j)\n            dfs(i-1, j)\n            dfs(i, j+1)\n            dfs(i, j-1)\n\n        count = 0\n\n        # Iterate through each cell in the grid\n        for i in range(len(grid)):\n            for j in range(len(grid[0])):\n                if grid[i][j] == '1':\n                    dfs(i, j)\n                    count += 1\n\n        return count\n    \n    \n#Question: https://leetcode.com/problems/number-of-islands\n#Blog: https://blog.unwiredlearning.com/number-of-islands",
+        "explanation": "Python solution for Number of Islands."
+      }
+    ]
+  },
+  {
+    "id": "longest-consecutive-sequence",
+    "slug": "longest-consecutive-sequence",
+    "title": "Longest Consecutive Sequence",
+    "difficulty": "medium",
+    "pattern": [
+      "hash-set",
+      "arrays"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Hash Map – O(n)",
+        "code": "class Solution:\n    def longestConsecutive(self, nums: List[int]) -> int:\n        longest_length = 0\n        hashmap = {}\n\n        # Populate the map with all numbers and mark them as not traveled\n        for num in nums:\n            hashmap[num] = False\n\n        for num in nums:\n            current_length = 1\n\n            # Check in forward direction\n            next_num = num + 1\n            while next_num in hashmap and not hashmap[next_num]:\n                current_length += 1\n                hashmap[next_num] = True\n                next_num += 1\n\n            # Check in reverse direction\n            prev_num = num - 1\n            while prev_num in hashmap and not hashmap[prev_num]:\n                current_length += 1\n                hashmap[prev_num] = True\n                prev_num -= 1\n\n            longest_length = max(longest_length, current_length)\n\n        return longest_length\n\n\n#Question: https://leetcode.com/problems/longest-consecutive-sequence/\n#Blog: https://blog.unwiredlearning.com/longest-consecutive-sequence/",
+        "explanation": "Python solution for Longest Consecutive Sequence."
+      }
+    ]
+  },
+  {
+    "id": "alien-dictionary",
+    "slug": "alien-dictionary",
+    "title": "Alien Dictionary",
+    "difficulty": "hard",
+    "pattern": [
+      "graph",
+      "topological-sort"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "DFS",
+        "code": "def alienOrder(words):\n    # Step 1: Create the graph.\n    adj = {c: set() for word in words for c in word}\n    \n    for i in range(len(words) - 1):\n        word1, word2 = words[i], words[i + 1]\n        minLen = min(len(word1), len(word2))\n        \n        # Handle the case where order is impossible.\n        if len(word1) > len(word2) and word1[:minLen] == word2[:minLen]:\n            return \"\"  \n        \n        for j in range(minLen):\n            if word1[j] != word2[j]:\n                adj[word1[j]].add(word2[j])\n                break\n    \n    # Step 2: Detect cycles and perform DFS.\n    visited = {}  # False = visited but not processed, True = processed.\n    order = []\n    \n    def dfs(c):\n        if c in visited:\n            return visited[c]  # If True, no cycle; if False, cycle detected.\n        visited[c] = False\n        for nei in adj[c]:\n            if dfs(nei) == False:\n                return False  # Cycle detected.\n        visited[c] = True\n        order.append(c)\n        return True\n    \n    for c in adj:\n        if c not in visited:\n            if not dfs(c):\n                return \"\"  # Cycle detected.\n    \n    # Reverse the post-visit ordered list.\n    return \"\".join(order[::-1])  \n\n\n#Question: https://www.lintcode.com/problem/892/\n#Blog: https://blog.unwiredlearning.com/alien-dictionary",
+        "explanation": "Python solution for Alien Dictionary."
+      }
+    ]
+  },
+  {
+    "id": "graph-valid-tree",
+    "slug": "graph-valid-tree",
+    "title": "Graph Valid Tree",
+    "difficulty": "medium",
+    "pattern": [
+      "graph",
+      "union-find"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "DFS",
+        "code": "def validTree(n, edges):\n    # Check for the necessary condition of a tree (n-1 edges)\n    if len(edges) != n - 1:  \n        return False\n    \n    # Create an adjacency list\n    graph = {i: [] for i in range(n)}\n    for u, v in edges:\n        graph[u].append(v)\n        graph[v].append(u)\n    \n    visited = set()\n    \n    def dfs(node, parent):\n        if node in visited:\n            return False\n        visited.add(node)\n        \n        for neighbor in graph[node]:\n            # Ignore the edge leading back to the parent\n            if neighbor == parent:  \n                continue\n            \n            # Attempt to visit each neighboring node using DFS.\n            path_is_clear = dfs(neighbor, node)\n            if path_is_clear is False:\n                return False\n        \n        return True\n    \n    # Start DFS from node 0; Check if it's fully connected and has no cycle\n    return dfs(0, -1) and len(visited) == n\n\n\n#Question: https://www.lintcode.com/problem/178\n#Blog: https://blog.unwiredlearning.com/graph-valid-tree",
+        "explanation": "Python solution for Graph Valid Tree."
+      }
+    ]
+  },
+  {
+    "id": "number-of-connected-components-in-an-undirected-graph",
+    "slug": "number-of-connected-components-in-an-undirected-graph",
+    "title": "Number of Connected Components in an Undirected Graph",
+    "difficulty": "medium",
+    "pattern": [
+      "graph",
+      "union-find"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "DFS",
+        "code": "def countComponents(n, edges):\n    def dfs(node):\n        # If the node is already visited, return to avoid cycles\n        if visited[node]:\n            return\n        \n        visited[node] = True\n        for neighbor in graph[node]:\n            dfs(neighbor)\n\n    # Initialize a graph represented as an adjacency list\n    graph = {i: [] for i in range(n)}  # n nodes with ids 0 to n-1\n    \n    # Populate the graph with the given edges\n    for u, v in edges:\n        graph[u].append(v)  \n        graph[v].append(u)  \n\n    visited = [False] * n \n    components = 0 \n\n    # Iterate through each node in the graph\n    for i in range(n):\n        # If a node is unvisited, it's part of a new component\n        if not visited[i]:\n            dfs(i)\n            components += 1  \n\n    return components  \n\n\n#Question: https://www.lintcode.com/problem/3651/\n#Blog: https://blog.unwiredlearning.com/number-of-connected-components-in-an-undirected-graph",
+        "explanation": "Python solution for Number of Connected Components in an Undirected Graph."
+      }
+    ]
+  },
+  {
+    "id": "insert-interval",
+    "slug": "insert-interval",
+    "title": "Insert Interval",
+    "difficulty": "medium",
+    "pattern": [
+      "intervals"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "class Solution:\n    def insert(self, intervals, newInterval) -> List[List[int]]:\n        left, right = [], []\n        start, end = newInterval\n\n        for i in intervals:\n            # i ends before new_interval starts\n            if i[1] < start:  \n                left.append(i)\n\n            # i starts after new_interval ends\n            elif i[0] > end:  \n                right.append(i)\n\n            # i overlaps with new_interval\n            else:  \n                start = min(start, i[0])\n                end = max(end, i[1])\n\n        return left + [[start, end]] + right\n\n\n#Question: https://leetcode.com/problems/insert-interval\n#Blog: https://blog.unwiredlearning.com/insert-interval",
+        "explanation": "Python solution for Insert Interval."
+      }
+    ]
+  },
+  {
+    "id": "merge-intervals",
+    "slug": "merge-intervals",
+    "title": "Merge Intervals",
+    "difficulty": "medium",
+    "pattern": [
+      "intervals",
+      "sorting"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def merge(self, intervals: List[List[int]]) -> List[List[int]]:\n\n        # Step 1: Sort the intervals by the start time\n        intervals.sort()\n\n        # Step 2: Initialize the result array with the first interval\n        merged = [intervals[0]]\n\n        # Step 3: Iterate over the intervals and merge when necessary\n        for i in range(1, len(intervals)):\n            if intervals[i][0] <= merged[-1][1]:\n                merged[-1][1] = max(merged[-1][1], intervals[i][1])\n            else:\n                merged.append(intervals[i])\n\n        return merged\n    \n\n#Question: https://leetcode.com/problems/merge-intervals\n#Blog: https://blog.unwiredlearning.com/merge-intervals",
+        "explanation": "Python solution for Merge Intervals."
+      }
+    ]
+  },
+  {
+    "id": "non-overlapping-intervals",
+    "slug": "non-overlapping-intervals",
+    "title": "Non-overlapping Intervals",
+    "difficulty": "medium",
+    "pattern": [
+      "intervals",
+      "greedy"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:\n        # Sort intervals by start time\n        intervals.sort()\n        \n        # Initialize the previous interval end time and count\n        prev_end = intervals[0][1]\n        count = 0\n        \n        for i in range(1, len(intervals)):\n            if intervals[i][0] < prev_end:\n                # Overlap detected, increment the count\n                count += 1\n                # Keep the interval with the smaller end to minimize future overlaps\n                prev_end = min(prev_end, intervals[i][1])\n            else:\n                # No overlap, update the prev_end to current interval's end\n                prev_end = intervals[i][1]\n        \n        return count\n\n\n#Question: https://leetcode.com/problems/non-overlapping-intervals\n#Blog: https://blog.unwiredlearning.com/non-overlapping-intervals",
+        "explanation": "Python solution for Non-overlapping Intervals."
+      }
+    ]
+  },
+  {
+    "id": "meeting-rooms",
+    "slug": "meeting-rooms",
+    "title": "Meeting Rooms",
+    "difficulty": "easy",
+    "pattern": [
+      "intervals",
+      "sorting"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "def can_attend_meetings(intervals):\n    intervals.sort()\n    \n    for i in range(1, len(intervals)):\n        if intervals[i][0] < intervals[i - 1][1]:\n            return False\n        \n    return True\n\n\n#Question: https://www.lintcode.com/problem/920/\n#Blog: https://blog.unwiredlearning.com/meeting-rooms",
+        "explanation": "Python solution for Meeting Rooms."
+      }
+    ]
+  },
+  {
+    "id": "meeting-rooms-ii",
+    "slug": "meeting-rooms-ii",
+    "title": "Meeting Rooms II",
+    "difficulty": "medium",
+    "pattern": [
+      "intervals",
+      "heap"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "def minMeetingRooms(intervals):\n    # Separate and sort start and end times\n    start_times = sorted(interval.start for interval in intervals)\n    end_times = sorted(interval.end for interval in intervals)\n\n    start_pointer, end_pointer = 0, 0\n    used_rooms = 0\n    max_rooms = 0\n\n    # Iterate over start times\n    while start_pointer < len(intervals):\n        if start_times[start_pointer] < end_times[end_pointer]:\n            # A new room is needed\n            used_rooms += 1\n            start_pointer += 1\n        else:\n            # A room is freed up\n            used_rooms -= 1\n            end_pointer += 1\n        \n        # Update the maximum number of rooms needed\n        max_rooms = max(max_rooms, used_rooms)\n\n    return max_rooms\n\n\n#Question: https://www.lintcode.com/problem/919/\n#Blog: https://blog.unwiredlearning.com/meeting-rooms-ii",
+        "explanation": "Python solution for Meeting Rooms II."
+      }
+    ]
+  },
+  {
+    "id": "reverse-linked-list",
+    "slug": "reverse-linked-list",
+    "title": "Reverse Linked List",
+    "difficulty": "easy",
+    "pattern": [
+      "linked-list"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\n\nclass Solution:\n    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        # Initialize two pointers, previous and current.\n        # Previous will eventually become the new head of the reversed list.\n        previous, current = None, head\n\n        # Traverse the list until we reach the end.\n        while current:\n            # Temporarily store the next node.\n            temp = current.next\n            \n            # Reverse the 'next' pointer of the current node to point to previous node.\n            current.next = previous\n            \n            # Move the previous pointer up to the current node.\n            previous = current\n            \n            # Proceed to the next node in the original list.\n            current = temp\n        \n        # After the loop, current will be None and previous will be the new head of the reversed list.\n        head = previous\n        return head\n    \n    \n#Question: https://leetcode.com/problems/reverse-linked-list\n#Blog: https://blog.unwiredlearning.com/reverse-linked-list",
+        "explanation": "Python solution for Reverse Linked List."
+      }
+    ]
+  },
+  {
+    "id": "linked-list-cycle",
+    "slug": "linked-list-cycle",
+    "title": "Linked List Cycle",
+    "difficulty": "easy",
+    "pattern": [
+      "linked-list",
+      "two-pointers"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\nclass Solution:\n    def detectCycle(self, head: ListNode) -> ListNode:\n        slow = head\n        fast = head\n        \n        # Advance both pointers at different speeds until they meet\n        while fast and fast.next:\n            fast = fast.next.next\n            slow = slow.next\n            \n            # If they meet, start from the head again and move at the same speed\n            if slow == fast:\n                while head != slow:\n                    head = head.next\n                    slow = slow.next\n                return slow\n        \n        # If no cycle is detected, return None\n        return None\n    \n\n#Question: https://leetcode.com/problems/linked-list-cycle-ii\n#Blog: https://blog.unwiredlearning.com/linked-list-cycle-ii",
+        "explanation": "Python solution for Linked List Cycle."
+      },
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\nclass Solution:\n    def hasCycle(self, head: ListNode) -> bool:\n        # Initialize the two pointers\n        slow, fast = head, head\n        \n        # Traverse the list with the two pointers\n        while fast is not None and fast.next is not None:\n            slow = slow.next  # Move the slow pointer one step\n            fast = fast.next.next  # Move the fast pointer two steps\n            \n            # If there's a cycle, the two pointers will meet\n            if slow == fast:\n                return True\n        \n        # If the fast pointer reaches the end, there's no cycle\n        return False\n    \n\n#Question: https://leetcode.com/problems/linked-list-cycle\n#Blog: https://blog.unwiredlearning.com/linked-list-cycle",
+        "explanation": "Python solution for Linked List Cycle."
+      }
+    ]
+  },
+  {
+    "id": "merge-two-sorted-lists",
+    "slug": "merge-two-sorted-lists",
+    "title": "Merge Two Sorted Lists",
+    "difficulty": "easy",
+    "pattern": [
+      "linked-list"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\n\nclass Solution:\n    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:\n        dummy = ListNode()  # Initialize a dummy node\n        node = dummy\n\n        # Traverse both lists and attach the smaller node\n        while list1 and list2:\n            if list1.val < list2.val:\n                node.next = list1\n                list1 = list1.next\n            else:\n                node.next = list2\n                list2 = list2.next\n            node = node.next\n\n        # Attach any remaining nodes\n        if list1 is not None:\n            node.next = list1\n        else: \n            node.next = list2\n\n        return dummy.next  # Return the merged list\n    \n    \n#Question: https://leetcode.com/problems/merge-two-sorted-lists\n#Blog: https://blog.unwiredlearning.com/merge-two-sorted-lists",
+        "explanation": "Python solution for Merge Two Sorted Lists."
+      }
+    ]
+  },
+  {
+    "id": "merge-k-sorted-lists",
+    "slug": "merge-k-sorted-lists",
+    "title": "Merge k Sorted Lists",
+    "difficulty": "hard",
+    "pattern": [
+      "linked-list",
+      "heap"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\n\nclass Solution:\n    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:\n        if not lists or len(lists) == 0:\n            return None\n        if len(lists) == 1:\n            return lists[0]\n\n        # Divide the list of linked lists into two halves and merge each half recursively\n        mid = len(lists) // 2\n        left = self.mergeKLists(lists[:mid])\n        right = self.mergeKLists(lists[mid:])\n\n        # Merge the two halves\n        return self.mergeTwoLists(left, right)\n\n    \n    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:\n        dummy = ListNode()\n        node = dummy\n\n        # Merge both lists while there are still nodes in l1 and l2\n        while l1 and l2:\n            if l1.val < l2.val:\n                node.next = l1\n                l1 = l1.next\n            else:\n                node.next = l2\n                l2 = l2.next\n            node = node.next\n\n        # If one list is exhausted, append the other list\n        node.next = l1 or l2\n        \n        return dummy.next\n    \n\n#Question: https://leetcode.com/problems/merge-k-sorted-lists\n#Blog: https://blog.unwiredlearning.com/merge-k-sorted-lists",
+        "explanation": "Python solution for Merge k Sorted Lists."
+      }
+    ]
+  },
+  {
+    "id": "remove-nth-node-from-end-of-list",
+    "slug": "remove-nth-node-from-end-of-list",
+    "title": "Remove Nth Node From End of List",
+    "difficulty": "medium",
+    "pattern": [
+      "linked-list",
+      "two-pointers"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\n\nclass Solution:\n    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:\n        dummy = ListNode(0) # Create a dummy node to simplify edge cases\n        dummy.next = head\n        slow, fast = dummy, head\n        \n        # Move fast pointer so that the gap between slow and fast is n nodes apart\n        for _ in range(n):\n            fast = fast.next\n        \n        # Move fast to the end, maintaining the gap\n        while fast:\n            fast = fast.next\n            slow = slow.next\n        \n        # Skip the desired node\n        slow.next = slow.next.next\n\n        # Return head of the modified list\n        return dummy.next  \n    \n\n#Question: https://leetcode.com/problems/remove-nth-node-from-end-of-list\n#Blog: https://blog.unwiredlearning.com/remove-nth-node-from-end-of-list",
+        "explanation": "Python solution for Remove Nth Node From End of List."
+      }
+    ]
+  },
+  {
+    "id": "reorder-list",
+    "slug": "reorder-list",
+    "title": "Reorder List",
+    "difficulty": "medium",
+    "pattern": [
+      "linked-list"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\n\nclass Solution:\n    def reorderList(self, head: ListNode) -> None:\n\n        # Step 1: Find the middle of the linked list\n        slow, fast = head, head\n        while fast and fast.next:\n            slow = slow.next\n            fast = fast.next.next\n\n        # Step 2: Reverse the second half of the list\n        previous, current = None, slow\n        while current:\n            next_temp = current.next\n            current.next = previous\n            previous = current\n            current = next_temp\n\n        # Step 3: Merge the two halves\n        first, second = head, previous\n        while second.next:\n            temp1, temp2 = first.next, second.next\n            first.next = second\n            second.next = temp1\n            first, second = temp1, temp2\n        \n        \n#Question: https://leetcode.com/problems/reorder-list\n#Blog: https://blog.unwiredlearning.com/reorder-list",
+        "explanation": "Python solution for Reorder List."
+      }
+    ]
+  },
+  {
+    "id": "set-matrix-zeroes",
+    "slug": "set-matrix-zeroes",
+    "title": "Set Matrix Zeroes",
+    "difficulty": "medium",
+    "pattern": [
+      "matrix"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def setZeroes(self, matrix: List[List[int]]) -> None:\n        rows, cols = len(matrix), len(matrix[0])\n        first_row_zero, first_col_zero = False, False\n        \n        # if the first row or first column need to be zeroed\n        for i in range(rows):\n            if matrix[i][0] == 0:\n                first_col_zero = True\n                break\n                \n        for j in range(cols): \n            if matrix[0][j] == 0:\n                first_row_zero = True\n                break\n        \n        # Use first row and column to mark zero rows and columns\n        for i in range(1, rows):\n            for j in range(1, cols):\n                if matrix[i][j] == 0:\n                    matrix[i][0] = 0\n                    matrix[0][j] = 0\n        \n        # Zero out marked rows and columns\n        for i in range(1, rows):\n            for j in range(1, cols):\n                if matrix[i][0] == 0 or matrix[0][j] == 0:\n                    matrix[i][j] = 0\n        \n        # Zero out the first column if needed\n        if first_col_zero:\n            for i in range(rows):\n                matrix[i][0] = 0\n        \n        # Zero out the first row if needed\n        if first_row_zero:73\n            for j in range(cols):\n                matrix[0][j] = 0\n                \n                \n#Question: https://leetcode.com/problems/set-matrix-zeroes\n#Blog: https://blog.unwiredlearning.com/set-matrix-zeroes",
+        "explanation": "Python solution for Set Matrix Zeroes."
+      }
+    ]
+  },
+  {
+    "id": "spiral-matrix",
+    "slug": "spiral-matrix",
+    "title": "Spiral Matrix",
+    "difficulty": "medium",
+    "pattern": [
+      "matrix"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:   \n        \n        # Initialize the boundaries\n        rowBegin, rowEnd = 0, len(matrix) - 1\n        colBegin, colEnd = 0, len(matrix[0]) - 1\n        \n        # Resultant list\n        result = []\n        \n        while rowBegin <= rowEnd and colBegin <= colEnd:\n            # colBegin to colEnd along the rowBegin boundary\n            for i in range(colBegin, colEnd + 1):\n                result.append(matrix[rowBegin][i])\n            rowBegin += 1\n            \n            # rowBegin to rowEnd along the colEnd boundary\n            for i in range(rowBegin, rowEnd + 1):\n                result.append(matrix[i][colEnd])\n            colEnd -= 1\n            \n            if rowBegin <= rowEnd:\n                # colEnd to colBegin along the rowEnd boundary\n                for i in range(colEnd, colBegin - 1, -1):\n                    result.append(matrix[rowEnd][i])\n                rowEnd -= 1\n            \n            if colBegin <= colEnd:\n                # rowEnd to rowBegin along the colBegin boundary\n                for i in range(rowEnd, rowBegin - 1, -1):\n                    result.append(matrix[i][colBegin])\n                colBegin += 1\n        \n        return result\n    \n\n#Question: https://leetcode.com/problems/spiral-matrix\n#Blog: https://blog.unwiredlearning.com/spiral-matrix",
+        "explanation": "Python solution for Spiral Matrix."
+      }
+    ]
+  },
+  {
+    "id": "rotate-image",
+    "slug": "rotate-image",
+    "title": "Rotate Image",
+    "difficulty": "medium",
+    "pattern": [
+      "matrix"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "class Solution:\n    def rotate(self, matrix: List[List[int]]) -> None:\n        n = len(matrix)\n\n        # Iterate over each layer of the matrix\n        for i in range(n // 2):\n            for j in range(i, n - i - 1):\n                # Save the temp element\n                temp = matrix[i][j]\n\n                # Move bottom-left element to top-left\n                matrix[i][j] = matrix[n - j - 1][i]\n\n                # Move bottom-right element to bottom-left\n                matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1]\n\n                # Move top-right element to bottom-right\n                matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1]\n\n                # Assign temp element to top-right\n                matrix[j][n - i - 1] = temp\n\n\n#Question: https://leetcode.com/problems/rotate-image\n#Blog: https://blog.unwiredlearning.com/rotate-image",
+        "explanation": "Python solution for Rotate Image."
+      }
+    ]
+  },
+  {
+    "id": "word-search",
+    "slug": "word-search",
+    "title": "Word Search",
+    "difficulty": "medium",
+    "pattern": [
+      "backtracking",
+      "matrix"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "DFS",
+        "code": "class Solution:\n    def exist(self, board: List[List[str]], word: str) -> bool:\n        \n        # DFS function to search for the word starting from cell (i, j)\n        def dfs(i, j, k):\n\n            if k == len(word):\n                return True\n\n            if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]) or board[i][j] != word[k]:\n                return False\n\n            tmp, board[i][j] = board[i][j], '/'\n            result = dfs(i+1, j, k+1) or dfs(i-1, j, k+1) or dfs(i, j+1, k+1) or dfs(i, j-1, k+1)\n            board[i][j] = tmp\n\n            return result\n\n        # Iterate over each cell in the board\n        for i in range(len(board)):\n            for j in range(len(board[0])):\n                if board[i][j] == word[0]:\n                    if dfs(i, j, 0):\n                        return True\n\n        # If no path matches the word, return False\n        return False\n        \n        \n#Question: https://leetcode.com/problems/word-search\n#Blog: https://blog.unwiredlearning.com/word-search",
+        "explanation": "Python solution for Word Search."
+      }
+    ]
+  },
+  {
+    "id": "longest-substring-without-repeating-characters",
+    "slug": "longest-substring-without-repeating-characters",
+    "title": "Longest Substring Without Repeating Characters",
+    "difficulty": "medium",
+    "pattern": [
+      "sliding-window",
+      "strings"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n                \n        # Initialize the pointers and the set\n        start, end, maxLength = 0, 0, 0\n        charSet = set()\n        \n        while end < len(s):\n            if s[end] not in charSet:\n                charSet.add(s[end])\n                maxLength = max(maxLength, end - start + 1)\n                end += 1\n            else:\n                charSet.remove(s[start])\n                start += 1\n                \n        return maxLength\n\n\n#Question: https://leetcode.com/problems/longest-substring-without-repeating-characters\n#Blog: https://blog.unwiredlearning.com/longest-substring-without-repeating-characters",
+        "explanation": "Python solution for Longest Substring Without Repeating Characters."
+      }
+    ]
+  },
+  {
+    "id": "longest-repeating-character-replacement",
+    "slug": "longest-repeating-character-replacement",
+    "title": "Longest Repeating Character Replacement",
+    "difficulty": "medium",
+    "pattern": [
+      "sliding-window",
+      "strings"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Hash Map – O(n)",
+        "code": "class Solution:\n    def characterReplacement(self, s: str, k: int) -> int:\n        count = {} \n        \n        start, max_length, max_repeat = 0, 0, 0\n        \n        for end in range(len(s)):\n            # Increment character count, and handle the case when key doesn't exist\n            count[s[end]] = count.get(s[end], 0) + 1\n            \n            # max_repeat is the character with highest frequency\n            max_repeat = max(max_repeat, count[s[end]])\n            \n            # If characters that need to be replaced exceed k, shrink the window\n            window = end - start + 1\n            if (window - max_repeat) > k:\n                count[s[start]] -= 1\n                start += 1\n            \n            window = end - start + 1\n            max_length = max(max_length, window)\n        \n        return max_length\n\n\n#Question: https://leetcode.com/problems/longest-repeating-character-replacement\n#Blog: https://blog.unwiredlearning.com/longest-repeating-character-replacement",
+        "explanation": "Python solution for Longest Repeating Character Replacement."
+      }
+    ]
+  },
+  {
+    "id": "minimum-window-substring",
+    "slug": "minimum-window-substring",
+    "title": "Minimum Window Substring",
+    "difficulty": "hard",
+    "pattern": [
+      "sliding-window",
+      "strings"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Hash Map – O(n)",
+        "code": "class Solution:\n    def minWindow(self, s: str, t: str) -> str:\n        if not s or not t:\n            return \"\"\n\n        # Store window and t characters frequency in hashmap.\n        wmap, tmap = {}, {}\n\n        for char in t:\n            tmap[char] = tmap.get(char, 0) + 1\n\n        # How many we've covered in the current window and Number of unique characters in t.\n        have, need = 0, len(tmap)\n\n        # Two pointers for the sliding window.\n        start, end = 0, 0\n\n        # Placeholder for the result.\n        min_len = float(\"inf\")\n        result = \"\"\n\n        while end < len(s):\n            char = s[end]\n\n            wmap[char] = wmap.get(char, 0) + 1\n\n            # If the frequency of current char matches desired frequency, increment have.\n            if char in tmap and wmap[char] == tmap[char]:\n                have += 1\n\n            # Try to shrink the window.\n            while start <= end and have == need:\n                char = s[start]\n\n                # Update result if this window is smaller.\n                current_window = end - start + 1\n                if current_window < min_len:\n                    min_len = current_window\n                    result = s[start:end+1]\n\n                # Update map and compare them.\n                wmap[char] -= 1\n                if char in tmap and wmap[char] < tmap[char]:\n                    have -= 1\n\n                # Move the start pointer.\n                start += 1\n\n            # Move the end pointer.\n            end += 1\n\n        return result\n    \n\n#Question: https://leetcode.com/problems/minimum-window-substring\n#Blog: https://blog.unwiredlearning.com/minimum-window-substring",
+        "explanation": "Python solution for Minimum Window Substring."
+      }
+    ]
+  },
+  {
+    "id": "valid-anagram",
+    "slug": "valid-anagram",
+    "title": "Valid Anagram",
+    "difficulty": "easy",
+    "pattern": [
+      "hash-map",
+      "strings"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def isAnagram(self, str1: str, str2: str) -> bool:\n        # Convert both to lowercase to ignore case match\n        str1 = str1.lower()\n        str2 = str2.lower()\n\n        # Strip off all the white spaces\n        str1 = str1.replace(\" \", \"\")\n        str2 = str2.replace(\" \", \"\")\n\n        # Initialize the bucket array\n        counts = [0] * 26\n\n        # Fill the buckets\n        for char in str1:\n            counts[ord(char) - ord('a')] += 1\n\n        # Empty the buckets\n        for char in str2:\n            counts[ord(char) - ord('a')] -= 1\n\n        # Check if all buckets are empty\n        for count in counts:\n            if count != 0:\n                return False\n\n        return True\n\n\n#Question: https://leetcode.com/problems/valid-anagram\n#Blog: https://blog.unwiredlearning.com/valid-anagram",
+        "explanation": "Python solution for Valid Anagram."
+      }
+    ]
+  },
+  {
+    "id": "group-anagrams",
+    "slug": "group-anagrams",
+    "title": "Group Anagrams",
+    "difficulty": "medium",
+    "pattern": [
+      "hash-map",
+      "strings"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Hash Map – O(n)",
+        "code": "class Solution:\n    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:\n        if not strs:\n            return []\n        \n        # Dictionary to hold groups of anagrams\n        hashmap = {}\n\n        # Function to generate a frequency string that uniquely represents each anagram group\n        def get_frequency_string(element):\n            freq_list = [0] * 26\n            \n            for char in element:\n                freq_list[ord(char) - ord('a')] += 1\n\n            frequency_string = []\n            char = 'a'\n            for position in freq_list:\n                frequency_string.append(char)\n                frequency_string.append(str(position))\n                char = chr(ord(char) + 1)\n\n            return ''.join(frequency_string)\n        \n        # Iterate over each element in the input list\n        for element in strs:\n            frequency_string = get_frequency_string(element)\n\n            if frequency_string not in hashmap:\n                hashmap[frequency_string] = []\n            \n            hashmap[frequency_string].append(element)\n\n        return list(hashmap.values())\n\n\n#Question: https://leetcode.com/problems/group-anagrams\n#Blog: https://blog.unwiredlearning.com/group-anagrams",
+        "explanation": "Python solution for Group Anagrams."
+      }
+    ]
+  },
+  {
+    "id": "valid-parentheses",
+    "slug": "valid-parentheses",
+    "title": "Valid Parentheses",
+    "difficulty": "easy",
+    "pattern": [
+      "stack",
+      "strings"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Python Solution",
+        "code": "class Solution:\n    def isValid(self, s: str) -> bool:\n        # Initialize an empty stack to keep track of opening brackets\n        stack = []\n\n        # A mapping of closing brackets to their corresponding opening brackets\n        bracket_map = {\")\": \"(\", \"]\": \"[\", \"}\": \"{\"}\n\n        # Iterate through each character in the string\n        for character in s:\n            if character in bracket_map:\n                # If stack is not empty and the top of the stack matches the corresponding opening bracket\n                if stack and stack[-1] == bracket_map[character]:\n                    stack.pop()\n                else:\n                    return False\n            else:\n                # If the character is an opening bracket, push it onto the stack\n                stack.append(character)\n\n        # After processing all characters, \n        # return True if the stack is empty (all brackets matched), else False\n        return not stack\n\n\n#Question: https://leetcode.com/problems/valid-parentheses\n#Blog: https://blog.unwiredlearning.com/valid-parentheses",
+        "explanation": "Python solution for Valid Parentheses."
+      }
+    ]
+  },
+  {
+    "id": "valid-palindrome",
+    "slug": "valid-palindrome",
+    "title": "Valid Palindrome",
+    "difficulty": "easy",
+    "pattern": [
+      "two-pointers",
+      "strings"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "class Solution:\n    def is_alphanumeric(self, element):\n        \"\"\"Check if a character is alphanumeric.\"\"\"\n        return ('A' <= element <= 'Z') or ('a' <= element <= 'z') or ('0' <= element <= '9')\n\n    def isPalindrome(self, s: str) -> bool:\n        left, right = 0, len(s) - 1\n\n        while left < right:\n\n            # Increment left pointer if not alphanumeric\n            while left < right and not self.is_alphanumeric(s[left]):\n                left += 1\n                \n            # Decrement right pointer if not alphanumeric\n            while left < right and not self.is_alphanumeric(s[right]):\n                right -= 1\n\n            # Compare characters (case-insensitive)\n            if s[left].lower() != s[right].lower():\n                return False\n            \n            left += 1\n            right -= 1\n\n        return True\n    \n\n#Question: https://leetcode.com/problems/valid-palindrome\n#Blog: https://blog.unwiredlearning.com/valid-palindrome",
+        "explanation": "Python solution for Valid Palindrome."
+      }
+    ]
+  },
+  {
+    "id": "longest-palindromic-substring",
+    "slug": "longest-palindromic-substring",
+    "title": "Longest Palindromic Substring",
+    "difficulty": "medium",
+    "pattern": [
+      "strings",
+      "two-pointers"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Dynamic Programming",
+        "code": "class Solution:\n    def longestPalindrome(self, s: str) -> str:\n        n = len(s)\n        if n < 2:\n            return s\n        dp = [[False] * n for _ in range(n)]\n        \n        # Initialize start position and max length of the palindrome\n        start, max_length = 0, 1\n\n        # Base case: single character palindromes\n        for i in range(n):\n            dp[i][i] = True\n\n        # Base case: two-character palindromes\n        for i in range(n-1):\n            if s[i] == s[i+1]:\n                dp[i][i+1] = True                \n            if dp[i][i+1]:\n                start, max_length = i, 2\n\n        # General case\n        for length in range(3, n+1):  \n            for i in range(n-length+1):\n                j = i + length - 1\n                if s[i] == s[j] and dp[i+1][j-1]:\n                    dp[i][j] = True\n                    start, max_length = i, length\n\n        return s[start:start+max_length]\n    \n    \n#Question: https://leetcode.com/problems/longest-palindromic-substring\n#Blog: https://blog.unwiredlearning.com/longest-palindromic-substring",
+        "explanation": "Python solution for Longest Palindromic Substring."
+      }
+    ]
+  },
+  {
+    "id": "palindromic-substrings",
+    "slug": "palindromic-substrings",
+    "title": "Palindromic Substrings",
+    "difficulty": "medium",
+    "pattern": [
+      "strings",
+      "two-pointers"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Dynamic Programming",
+        "code": "class Solution:\n    def countSubstrings(self, s: str) -> int:\n        n = len(s)\n\n        # Initialize the DP table with False.\n        dp = [[False] * n for _ in range(n)]\n        count = 0\n\n        # Base case: single characters\n        for i in range(n):\n            dp[i][i] = True\n            count += 1\n\n        # Base case: two consecutive characters\n        for i in range(n-1):\n            if s[i] == s[i+1]:\n                dp[i][i+1] = True\n                count += 1\n\n        # DP case: substrings of length 3 to n\n        for length in range(3, n+1):\n\n            # Iterate through all starting indices for the current length.\n            for i in range(n-length+1):\n\n                # Calculate the ending index of the current substring.\n                j = i+length-1\n\n                # Check if the current substring is a palindrome.\n                if s[i] == s[j] and dp[i+1][j-1]:\n                    dp[i][j] = True\n                    count += 1\n\n        return count\n\n\n#Question: https://leetcode.com/problems/palindromic-substrings\n#Blog: https://blog.unwiredlearning.com/palindromic-substrings",
+        "explanation": "Python solution for Palindromic Substrings."
+      }
+    ]
+  },
+  {
+    "id": "encode-and-decode-strings",
+    "slug": "encode-and-decode-strings",
+    "title": "Encode and Decode Strings",
+    "difficulty": "medium",
+    "pattern": [
+      "strings",
+      "design"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": []
+  },
+  {
+    "id": "maximum-depth-of-binary-tree",
+    "slug": "maximum-depth-of-binary-tree",
+    "title": "Maximum Depth of Binary Tree",
+    "difficulty": "easy",
+    "pattern": [
+      "tree",
+      "dfs"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\nclass Solution:\n    def maxDepth(self, root: Optional[TreeNode]) -> int:\n        if not root:\n            return 0\n\n        max_depth = 0\n        \n        # Stack of (node, depth) pairs\n        stack = [(root, 1)]  \n\n        while stack:\n            node, depth = stack.pop()\n            \n            if node:\n                max_depth = max(max_depth, depth)\n                if node.left:\n                    stack.append((node.left, depth + 1))                    \n                if node.right:\n                    stack.append((node.right, depth + 1))\n\n        return max_depth\n    \n\n#Question: https://leetcode.com/problems/maximum-depth-of-binary-tree\n#Blog: https://blog.unwiredlearning.com/maximum-depth-of-binary-tree",
+        "explanation": "Python solution for Maximum Depth of Binary Tree."
+      }
+    ]
+  },
+  {
+    "id": "same-tree",
+    "slug": "same-tree",
+    "title": "Same Tree",
+    "difficulty": "easy",
+    "pattern": [
+      "tree",
+      "dfs"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\nclass Solution:\n    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:\n        # Base case: if both trees are empty\n        if p == None and q == None:\n            return True\n        \n        # Trees are not the same if either of them is empty or values are different\n        if p == None or q == None or p.val != q.val:\n            return False\n        \n        # Check recursively for left and right subtrees\n        left_compare = self.isSameTree(p.left, q.left)\n        right_compare = self.isSameTree(p.right, q.right)\n\n        return left_compare and right_compare\n    \n\n#Question: https://leetcode.com/problems/same-tree\n#Blog: https://blog.unwiredlearning.com/same-tree",
+        "explanation": "Python solution for Same Tree."
+      }
+    ]
+  },
+  {
+    "id": "invert-binary-tree",
+    "slug": "invert-binary-tree",
+    "title": "Invert Binary Tree",
+    "difficulty": "easy",
+    "pattern": [
+      "tree",
+      "dfs"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\nclass Solution:\n    def invertTree(self, root: TreeNode) -> TreeNode:\n        \n        if root is None:\n            return None\n\n        # Swap the left and right children\n        root.left, root.right = root.right, root.left\n\n        # Recursively invert the left and right subtree\n        self.invertTree(root.left)\n        self.invertTree(root.right)\n\n        return root\n    \n\n#Question: https://leetcode.com/problems/invert-binary-tree\n#Blog: https://blog.unwiredlearning.com/invert-binary-tree",
+        "explanation": "Python solution for Invert Binary Tree."
+      }
+    ]
+  },
+  {
+    "id": "binary-tree-maximum-path-sum",
+    "slug": "binary-tree-maximum-path-sum",
+    "title": "Binary Tree Maximum Path Sum",
+    "difficulty": "hard",
+    "pattern": [
+      "tree",
+      "dfs"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "DFS",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\nclass Solution:\n    def maxPathSum(self, root: Optional[TreeNode]) -> int:\n        max_sum = float('-inf')\n\n        def dfs(node):\n            if not node:\n                return 0\n\n            # Recursive call on left and right child\n            left_gain = max(dfs(node.left), 0)\n            right_gain = max(dfs(node.right), 0)\n\n            # Update max_sum if it's better to start a new path\n            price_newpath = node.val + left_gain + right_gain\n            max_sum = max(max_sum, price_newpath)\n\n            # For recursion return the max gain if continue the same path\n            return node.val + max(left_gain, right_gain)\n\n        dfs(root)\n        return max_sum\n        \n        \n#Question: https://leetcode.com/problems/binary-tree-maximum-path-sum\n#Blog: https://blog.unwiredlearning.com/binary-tree-maximum-path-sum",
+        "explanation": "Python solution for Binary Tree Maximum Path Sum."
+      }
+    ]
+  },
+  {
+    "id": "binary-tree-level-order-traversal",
+    "slug": "binary-tree-level-order-traversal",
+    "title": "Binary Tree Level Order Traversal",
+    "difficulty": "medium",
+    "pattern": [
+      "tree",
+      "bfs"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\nclass Solution:\n    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:\n        if not root:\n            return []\n    \n        result, queue = [], [root]\n\n      \t# Continue until there are no nodes left in the queue\n        while queue:\n          \t# Store the number of nodes at the current level\n            level_size = len(queue)\n            level = []\n            \n            # Iterate over all nodes at the current level\n            for _ in range(level_size):\n                node = queue.pop(0)\n                level.append(node.val)\n                if node.left:\n                    queue.append(node.left)\n                if node.right:\n                    queue.append(node.right)\n            \n            result.append(level)\n        \n        return result\n        \n        \n#Question: https://leetcode.com/problems/binary-tree-level-order-traversal\n#Blog: https://blog.unwiredlearning.com/binary-tree-level-order-traversal",
+        "explanation": "Python solution for Binary Tree Level Order Traversal."
+      }
+    ]
+  },
+  {
+    "id": "serialize-and-deserialize-binary-tree",
+    "slug": "serialize-and-deserialize-binary-tree",
+    "title": "Serialize and Deserialize Binary Tree",
+    "difficulty": "hard",
+    "pattern": [
+      "tree",
+      "design"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "# Definition for a binary tree node.\n# class TreeNode(object):\n#     def __init__(self, x):\n#         self.val = x\n#         self.left = None\n#         self.right = None\n\nclass Codec:\n\n    def serialize(self, root):\n        \"\"\"Encodes a tree to a single string.\"\"\"\n        if not root:\n            return \"\"\n        queue = [root]\n        result = []\n        while queue:\n            node = queue.pop(0)\n            if node:\n                result.append(str(node.val))\n                queue.append(node.left)\n                queue.append(node.right)\n            else:\n                result.append(\"N\")\n        return \",\".join(result)\n        \n\n    def deserialize(self, data):\n        \"\"\"Decodes your encoded data to tree.\"\"\"\n        if not data:\n            return None\n        values = data.split(\",\")\n        root = TreeNode(int(values[0]))\n        queue = [root]\n        i = 1\n        while queue:\n            node = queue.pop(0)\n            if values[i] != \"N\":\n                node.left = TreeNode(int(values[i]))\n                queue.append(node.left)\n            i += 1\n            if values[i] != \"N\":\n                node.right = TreeNode(int(values[i]))\n                queue.append(node.right)\n            i += 1\n        return root\n        \n\n# Your Codec object will be instantiated and called as such:\n# ser = Codec()\n# deser = Codec()\n# ans = deser.deserialize(ser.serialize(root))\n\n\n#Question: https://leetcode.com/problems/serialize-and-deserialize-binary-tree\n#Blog: https://blog.unwiredlearning.com/serialize-and-deserialize-binary-tree",
+        "explanation": "Python solution for Serialize and Deserialize Binary Tree."
+      }
+    ]
+  },
+  {
+    "id": "subtree-of-another-tree",
+    "slug": "subtree-of-another-tree",
+    "title": "Subtree of Another Tree",
+    "difficulty": "easy",
+    "pattern": [
+      "tree",
+      "dfs"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\nclass Solution:\n  \t# Main function to check if subRoot is a subtree of root.\n    def isSubtree(self, root: TreeNode, subRoot: TreeNode) -> bool:\n        \n        # Base case: if subRoot is None, it is a subtree.\n        if subRoot is None: \n        \treturn True\n      \n      \t# Base case: if root is None, subRoot can't be a subtree of root.\n        if root == None and subRoot != None: \n        \treturn False\n\n        # Check if the current tree is the same as subRoot.\n        if self.isSameTree(root, subRoot): \n        \treturn True\n\n        # Recursively check left and right subtrees.\n        left_check = self.isSubtree(root.left, subRoot)\n        right_check = self.isSubtree(root.right, subRoot)  \n\n        return left_check or right_check\n      \n\n   \t# Helper function to check if two trees are identical.\n    def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:\n        if p == None and q == None: \n        \treturn True\n          \n        if p == None or q == None or p.val != q.val: \n        \treturn False\n        \n        left_compare = self.isSameTree(p.left, q.left)\n        right_compare = self.isSameTree(p.right, q.right)\n\n        return left_compare and right_compare\n      \n      \n#Question: https://leetcode.com/problems/subtree-of-another-tree\n#Blog: https://blog.unwiredlearning.com/subtree-of-another-tree",
+        "explanation": "Python solution for Subtree of Another Tree."
+      }
+    ]
+  },
+  {
+    "id": "construct-binary-tree-from-preorder-and-inorder-traversal",
+    "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+    "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+    "difficulty": "medium",
+    "pattern": [
+      "tree",
+      "dfs"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\nclass Solution:\n    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:\n        # Create a map to efficiently find the index of any element in inorder list\n        io_map = {}\n        for i in range(len(inorder)):\n            io_map[inorder[i]] = i\n\n        # Call recursive helper function to build the tree\n        return self.splitTree(preorder, io_map, 0, 0, len(inorder) - 1)\n\n    def splitTree(self, preorder, io_map, rootIndex, left, right):\n\n        # Base case: if the left index exceeds the right index, subtree is empty\n        if left > right:\n            return None\n\n        # Create the root node with the current root element\n        root = TreeNode(preorder[rootIndex])\n\n        # Find the index of the root element in inorder list\n        mid = io_map[preorder[rootIndex]]\n\n        # Recursively build the left subtree\n        if mid > left:\n            root.left = self.splitTree(preorder, io_map, rootIndex + 1, left, mid - 1)\n\n        # Recursively build the right subtree\n        if mid < right:\n            root.right = self.splitTree(preorder, io_map, rootIndex + mid - left + 1, mid + 1, right)\n\n        return root     \n\n#Question: https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal\n#Blog: https://blog.unwiredlearning.com/construct-binary-tree-from-preorder-and-inorder-traversal",
+        "explanation": "Python solution for Construct Binary Tree from Preorder and Inorder Traversal."
+      }
+    ]
+  },
+  {
+    "id": "validate-binary-search-tree",
+    "slug": "validate-binary-search-tree",
+    "title": "Validate Binary Search Tree",
+    "difficulty": "medium",
+    "pattern": [
+      "tree",
+      "bst"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\nclass Solution:\n    def isValidBST(self, root: Optional[TreeNode]) -> bool:\n        # List to store the values of nodes in in-order traversal\n        io_list = []\n        \n        # Populate the io_list with the in-order traversal of the tree\n        self.helper(root, io_list)\n\n        # Assume the tree is a BST initially\n        is_bst = True\n        # Keep track of the previous value in the in-order traversal\n        prev = io_list[0]\n\n        # Iterate through the in-order list to check if it's sorted in increasing order\n        for i in range(1, len(io_list)):\n            # If the current value is not greater than the previous value, it's not a BST\n            if io_list[i] <= prev:\n                is_bst = False\n            prev = io_list[i]\n\n        # Return the final result\n        return is_bst\n\n    def helper(self, tree_node, io_list):\n        # Base case: if the node is None, return\n        if tree_node is None:\n            return\n\n        # Recursive call on the left subtree\n        self.helper(tree_node.left, io_list)\n        # Append the current node's value to the in_order_list\n        io_list.append(tree_node.val)\n        # Recursive call on the right subtree\n        self.helper(tree_node.right, io_list)\n        \n        \n#Question: https://leetcode.com/problems/validate-binary-search-tree\n#Blog: https://blog.unwiredlearning.com/validate-binary-search-tree",
+        "explanation": "Python solution for Validate Binary Search Tree."
+      }
+    ]
+  },
+  {
+    "id": "kth-smallest-element-in-a-bst",
+    "slug": "kth-smallest-element-in-a-bst",
+    "title": "Kth Smallest Element in a BST",
+    "difficulty": "medium",
+    "pattern": [
+      "tree",
+      "bst"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\nclass Solution:\n    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:\n        # List to store the values of nodes in in-order traversal\n        io_list = []\n        \n        # Populate the io_list with the in-order traversal of the tree\n        self.helper(root, io_list)\n\n        return io_list[k-1]\n\n    def helper(self, tree_node, io_list):\n        # Base case: if the node is None, return\n        if tree_node is None:\n            return\n\n        self.helper(tree_node.left, io_list)\n        io_list.append(tree_node.val)\n        self.helper(tree_node.right, io_list)\n        \n\n#Question: https://leetcode.com/problems/kth-smallest-element-in-a-bst\n#Blog: https://blog.unwiredlearning.com/kth-smallest-element-in-a-bst",
+        "explanation": "Python solution for Kth Smallest Element in a BST."
+      }
+    ]
+  },
+  {
+    "id": "lowest-common-ancestor-of-a-binary-search-tree",
+    "slug": "lowest-common-ancestor-of-a-binary-search-tree",
+    "title": "Lowest Common Ancestor of a Binary Search Tree",
+    "difficulty": "medium",
+    "pattern": [
+      "tree",
+      "bst"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Two Pointers",
+        "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.left = None\n#         self.right = None\n\nclass Solution:\n    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':\n        while root:\n            \n            # If both p and q are greater than root, go to right subtree\n            if p.val > root.val and q.val > root.val:\n                root = root.right\n            \n            # If both p and q are lesser than root, go to left subtree\n            elif p.val < root.val and q.val < root.val:\n                root = root.left\n            \n            else:\n                # We have found the split point, i.e. the LCA node.\n                return root\n\n\n#Question: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree\n#Blog: https://blog.unwiredlearning.com/lowest-common-ancestor-of-a-binary-search-tree",
+        "explanation": "Python solution for Lowest Common Ancestor of a Binary Search Tree."
+      }
+    ]
+  },
+  {
+    "id": "implement-trie-prefix-tree",
+    "slug": "implement-trie-prefix-tree",
+    "title": "Implement Trie (Prefix Tree)",
+    "difficulty": "medium",
+    "pattern": [
+      "trie"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Hash Map – O(n)",
+        "code": "class TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.is_end = False\n\nclass Trie:\n\n    def __init__(self):\n        self.root = TrieNode()\n\n    def insert(self, word: str) -> None:\n        node = self.root        \n        for char in word:\n            if char not in node.children:\n                node.children[char] = TrieNode()\n            node = node.children[char]\n        node.is_end = True\n\n    def search(self, word: str) -> bool:\n        node = self.root\n        for char in word:\n            if char not in node.children:\n                return None\n            node = node.children[char]\n        return node.is_end\n\n    def startsWith(self, prefix: str) -> bool:\n        node = self.root\n        for char in prefix:\n            if char not in node.children:\n                return None\n            node = node.children[char]\n        return node\n\n\n# Your Trie object will be instantiated and called as such:\n# obj = Trie()\n# obj.insert(word)\n# param_2 = obj.search(word)\n# param_3 = obj.startsWith(prefix)\n\n\n#Question: https://leetcode.com/problems/implement-trie-prefix-tree\n#Blog: https://blog.unwiredlearning.com/implement-trie-prefix-tree",
+        "explanation": "Python solution for Implement Trie (Prefix Tree)."
+      }
+    ]
+  },
+  {
+    "id": "add-and-search-word-data-structure-design",
+    "slug": "add-and-search-word-data-structure-design",
+    "title": "Add and Search Word - Data structure design",
+    "difficulty": "medium",
+    "pattern": [
+      "trie",
+      "design"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "DFS",
+        "code": "class TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.is_end = False\n\nclass WordDictionary:\n\n    def __init__(self):\n        self.root = TrieNode()        \n\n    def addWord(self, word: str) -> None:\n        node = self.root\n        for char in word:\n            if char not in node.children:\n                node.children[char] = TrieNode()\n            node = node.children[char]\n        node.is_end = True        \n        \n\n    def search(self, word: str) -> bool:\n        node = self.root\n\n        def dfs(node, i):\n            if i == len(word):\n                return node.is_end\n                \n            if word[i] == '.':\n                for child in node.children.values():\n                    if dfs(child, i + 1): \n                        return True\n                return False\n\n            if word[i] in node.children:\n                return dfs(node.children[word[i]], i + 1)\n            return False\n\n        return dfs(node, 0)        \n\n\n# Your WordDictionary object will be instantiated and called as such:\n# obj = WordDictionary()\n# obj.addWord(word)\n# param_2 = obj.search(word)\n\n\n#Question: https://leetcode.com/problems/design-add-and-search-words-data-structure\n#Blog: https://blog.unwiredlearning.com/design-add-and-search-words-data-structure",
+        "explanation": "Python solution for Add and Search Word - Data structure design."
+      }
+    ]
+  },
+  {
+    "id": "word-search-ii",
+    "slug": "word-search-ii",
+    "title": "Word Search II",
+    "difficulty": "hard",
+    "pattern": [
+      "trie",
+      "backtracking"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "DFS",
+        "code": "class TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.is_end = False\n\nclass Solution:\n\n    # Function to build a Trie from the given list of words\n    def buildTrie(self, words):\n        root = TrieNode()\n        for word in words:\n            node = root\n            for char in word:\n                if char not in node.children:\n                    node.children[char] = TrieNode()\n                node = node.children[char]\n            node.is_end = True\n        return root\n\n    # Depth-first search function to find words in the board\n    def dfs(self, board, node, i, j, path, result):\n        if node.is_end:\n            result.add(path)\n            node.is_end = False  # Avoid duplicates\n        \n        # Boundary conditions and character check\n        if (i < 0 or i >= len(board) or \n            j < 0 or j >= len(board[0]) or \n            board[i][j] not in node.children):\n            return\n        temp, board[i][j] = board[i][j], '#'  # Mark as visited\n        \n        # Explore all four possible directions\n        for x, y in [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]:\n            self.dfs(board, node.children[temp], x, y, path + temp, result)\n        board[i][j] = temp  # Unmark\n    \n    # Main function to find all words in the board\n    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:\n        root = self.buildTrie(words)\n        result = set()\n        \n        for i in range(len(board)):\n            for j in range(len(board[0])):\n                if board[i][j] in root.children:\n                    self.dfs(board, root, i, j, '', result)\n        return list(result)\n    \n\n#Question: https://leetcode.com/problems/word-search-ii\n#Blog: https://blog.unwiredlearning.com/word-search-ii",
+        "explanation": "Python solution for Word Search II."
+      }
+    ]
+  },
+  {
+    "id": "top-k-frequent-elements",
+    "slug": "top-k-frequent-elements",
+    "title": "Top K Frequent Elements",
+    "difficulty": "medium",
+    "pattern": [
+      "heap",
+      "hash-map"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Hash Map – O(n)",
+        "code": "class Solution:\n    def topKFrequent(self, nums: List[int], k: int) -> List[int]:\n        # Initialize bucket as a list of empty lists\n        bucket = [[] for _ in range(len(nums) + 1)]\n        frequencyMap = {}\n\n        # Fill frequencyMap\n        for n in nums:\n            if n not in frequencyMap:\n                frequencyMap[n] = 1\n            else:\n                frequencyMap[n] += 1\n\n        # Fill bucket\n        for key, frequency in frequencyMap.items():\n            bucket[frequency].append(key)\n\n        result = []\n        # Iterate through bucket in reverse to get top k frequent elements\n        for i in reversed(range(len(bucket))):\n            if bucket[i]:\n                for value in bucket[i]:\n                    if len(result) < k:\n                        result.append(value)\n                    else:\n                        return result\n        return result\n    \n\n#Question: https://leetcode.com/problems/top-k-frequent-elements\n#Blog: https://blog.unwiredlearning.com/top-k-frequent-elements",
+        "explanation": "Python solution for Top K Frequent Elements."
+      }
+    ]
+  },
+  {
+    "id": "find-median-from-data-stream",
+    "slug": "find-median-from-data-stream",
+    "title": "Find Median from Data Stream",
+    "difficulty": "hard",
+    "pattern": [
+      "heap",
+      "design"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": [
+      {
+        "language": "python",
+        "label": "Heap – Optimized",
+        "code": "class MedianFinder:\n\n    def __init__(self):\n        self.leftHalf = []  # Max heap (invert the values for max heap behavior)\n        self.rightHalf = [] # Min heap\n\n    def addNum(self, num: int) -> None:\n        if not self.leftHalf or num <= -self.leftHalf[0]:\n            heapq.heappush(self.leftHalf, -num)  # Invert num for max heap\n        else:\n            heapq.heappush(self.rightHalf, num)\n        \n        # Rebalance heaps\n        if len(self.leftHalf) > len(self.rightHalf) + 1:\n            heapq.heappush(self.rightHalf, -heapq.heappop(self.leftHalf))\n        elif len(self.rightHalf) > len(self.leftHalf):\n            heapq.heappush(self.leftHalf, -heapq.heappop(self.rightHalf))\n\n    def findMedian(self) -> float:\n        if len(self.leftHalf) > len(self.rightHalf):\n            return -self.leftHalf[0]\n        elif len(self.rightHalf) > len(self.leftHalf):\n            return self.rightHalf[0]\n        else:\n            return (-self.leftHalf[0] + self.rightHalf[0]) / 2.0\n\n\n# Your MedianFinder object will be instantiated and called as such:\n# obj = MedianFinder()\n# obj.addNum(num)\n# param_2 = obj.findMedian()\n\n\n#Question: https://leetcode.com/problems/find-median-from-data-stream\n#Blog: https://blog.unwiredlearning.com/find-median-from-data-stream",
+        "explanation": "Python solution for Find Median from Data Stream."
+      }
+    ]
+  },
+  {
+    "id": "combination-sum-iv",
+    "slug": "combination-sum-iv",
+    "title": "Combination Sum IV",
+    "difficulty": "medium",
+    "pattern": [
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": []
+  },
+  {
+    "id": "house-robber-iii",
+    "slug": "house-robber-iii",
+    "title": "House Robber III",
+    "difficulty": "medium",
+    "pattern": [
+      "tree",
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": []
+  },
+  {
+    "id": "burst-balloons",
+    "slug": "burst-balloons",
+    "title": "Burst Balloons",
+    "difficulty": "hard",
+    "pattern": [
+      "dynamic-programming"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": []
+  },
+  {
+    "id": "regular-expression-matching",
+    "slug": "regular-expression-matching",
+    "title": "Regular Expression Matching",
+    "difficulty": "hard",
+    "pattern": [
+      "dynamic-programming",
+      "strings"
+    ],
+    "blind75": true,
+    "neetcode150": true,
+    "problem": "",
+    "constraints": [],
+    "hints": [],
+    "solutions": []
+  }
+]
